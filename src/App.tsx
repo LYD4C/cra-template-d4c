@@ -16,7 +16,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(true)
 
   const toggleTheme = () => {
-    setDarkMode((mode) => !mode)
+    setDarkMode(mode => !mode)
   }
 
   return (

@@ -66,7 +66,7 @@ export const useLoading = () => {
       setShow(false)
     },
     setLoadingProps(props: Partial<LoadingOptions>) {
-      setLoadingProps((op) => ({
+      setLoadingProps(op => ({
         ...op,
         ...props,
       }))
