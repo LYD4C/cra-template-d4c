@@ -27,3 +27,20 @@ NAME 是需要添加的页面名称
 NAME 是需要添加的组件名称
 
 `yarn run addCompo NAME`
+
+
+## 与环境相关的变量
+/src/config/index.ts
+
+config 目录下可以配置与运行环境相关的变量,如合约地址等
+
+该文件夹最终导出 CONFIG Object 变量
+
+Example:
+
+```tsx
+//src/pages/Main/Main.tsx
+import CONFIG from "../../config"
+console.log(CONFIG.xxx)
+```
+
