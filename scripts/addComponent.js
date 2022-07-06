@@ -11,8 +11,8 @@ async function copyFiles(copiedPath, resultPath) {
   fs.ensureDirSync(url)
   try {
     await fs.copySync(copiedPath, url)
-    await fs.move(`${url}/demo.tsx`, `${url}/${name}.tsx`)
-    await reIndexWrite(`${url}/index.ts`, name)
+    await fs.move(`${url}/Custom.tsx`, `${url}/${name}.tsx`)
+    await reWrite(`${url}/index.ts`, name)
     await reWrite(`${url}/${name}.tsx`, name)
     console.log('add page success!')
   } catch (err) {
@@ -20,18 +20,10 @@ async function copyFiles(copiedPath, resultPath) {
   }
 }
 
-async function reIndexWrite(url, name) {
-  const packageObj = await fs.readFile(url)
-  const content = packageObj.toString()
-  await fs.writeFile(url, content.replace('demo', name))
-}
-
 async function reWrite(url, name) {
   const packageObj = await fs.readFile(url)
   const content = packageObj.toString()
-  const newName = `${name[0].toLocaleUpperCase()}${name.slice(1)}`
-  const newContent = content.replace(new RegExp('Demo', 'g'), newName)
-  await fs.writeFile(url, newContent)
+  await fs.writeFile(url, content.replace(new RegExp('Custom', 'g'), name))
 }
 
-copyFiles('templates/page', 'src/pages')
+copyFiles('templates/component', 'src/components')

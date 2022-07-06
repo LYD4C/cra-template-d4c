@@ -2,7 +2,7 @@
 import { BigNumber, ethers } from 'ethers'
 import {
   GUNDAM_ABI, GUNDAM_CONTRACTS, NFTCOMPOUND_ABI, NFTCOMPOUND_CONTRACTS, STRATEGY_CONTRACTS, VAULT_ABI, VAULT_CONTRACTS,
-} from '../global'
+} from './global'
 
 export const GUNDAM_URI = 'https://ipfs.moralis.io:2053/ipfs/QmYnWVLsQ2egs6xa8x4T25oW2HyAqbN4T5V2LW1yAXbFqf'
 const rpcUrl = 'https://speedy-nodes-nyc.moralis.io/183208d8487f74a9dccbc1c7/bsc/testnet'

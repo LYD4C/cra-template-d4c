@@ -3,11 +3,11 @@ import {
   darkTheme, GlobalStyle, lightTheme,
 } from './styled'
 import React, {
-  createContext, useState,
+  createContext, useEffect, useState,
 } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { LoadingProvider } from './components/Loading/Loading'
-
+import Main from './pages/Main'
 
 export const ThemeContext = createContext(true)
 export const WalletContext = createContext({} as any)
@@ -15,9 +15,9 @@ export const WalletContext = createContext({} as any)
 function App() {
   const [darkMode, setDarkMode] = useState(true)
 
-  const toggleTheme = () => {
+  useEffect(() => {
     setDarkMode(mode => !mode)
-  }
+  }, [])
 
   return (
     <React.StrictMode>
@@ -26,11 +26,7 @@ function App() {
           <LoadingProvider>
             <GlobalStyle />
             <Routes>
-              <Route
-                path="/"
-                element={
-                  <div onClick={toggleTheme}>hello world</div>}
-              />
+              <Route path="/" element={<Main />} />
             </Routes>
           </LoadingProvider>
         </ThemeProvider>

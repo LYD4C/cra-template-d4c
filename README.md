@@ -17,3 +17,13 @@ TypeScript React App Tempalte
 
 ## To create a production build
 `yarn build`
+
+## 添加页面
+NAME 是需要添加的页面名称
+
+`yarn run addPage NAME`
+
+## 添加公共组件
+NAME 是需要添加的组件名称
+
+`yarn run addCompo NAME`

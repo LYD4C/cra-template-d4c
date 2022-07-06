@@ -26,7 +26,8 @@
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "eslint src --ext .ts,.tsx --quiet",
-    "addPage": "node scripts/addPage.js $2"
+    "addPage": "node scripts/addPage.js $2",
+    "addCompo": "node scripts/addComponent.js $2"
   },
   "browserslist": {
     "production": [
