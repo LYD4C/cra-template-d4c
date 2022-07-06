@@ -23,8 +23,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "dev": "craco start",
+    "build": "craco build",
     "test": "eslint src --ext .ts,.tsx --quiet",
     "addPage": "node scripts/addPage.js $2",
     "addCompo": "node scripts/addComponent.js $2"
@@ -42,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^7.0.0-alpha.7",
     "@material-ui/core": "^4.12.4",
     "@types/styled-components": "^5.1.25",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
@@ -52,9 +53,9 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "fs-extra": "^10.1.0",
     "styled-components": "^5.3.0",
-    "typescript": "^4.7.4",
-    "fs-extra": "^10.1.0"
+    "typescript": "^4.7.4"
   },
   "pre-commit": [
     "test"
