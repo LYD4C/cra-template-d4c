@@ -33,20 +33,8 @@ const ButtonWrapper = styled(MButton)`
     border-radius: 180px;
     font-weight: 400;
     text-transform: none;
-    font-family: MiSans-Normal;
     font-size: 16px;
     line-height: 22px;
-    :hover {
-      background-color: ${defaultTheme.primaryColor};
-      border-color:  ${defaultTheme.primaryColor};
-      color: #FCFCFD;
-    }
-    :vidited {
-      background: #3772FF;
-      border-color: #3772FF;
-      color: #FCFCFD;
-    }
-
   }
 
 `

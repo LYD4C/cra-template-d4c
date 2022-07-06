@@ -2,7 +2,8 @@ import { Modal as MModal } from '@material-ui/core'
 import Fade from '@material-ui/core/Fade'
 import { useContext } from 'react'
 import styled from 'styled-components'
-import { ThemeContext } from '../../App'
+import { ThemeContext } from '../../helpers/hooks'
+
 import { flexCenter } from '../../styled'
 import CloseDark from './close-dark-icon.svg'
 import CloseLight from './close-light-icon.svg'
@@ -37,7 +38,7 @@ const Modal: React.FC<ModalProps> = ({
   width = 0,
   onClose,
 }) => {
-  const isDarkMode = useContext(ThemeContext)
+  const { darkMode } = useContext(ThemeContext)
   return (
     <MModal
       open={open}
@@ -49,7 +50,7 @@ const Modal: React.FC<ModalProps> = ({
         <ModalBody style={{ width: (width ?? 0) > 0 ? `${width}px` : 'auto' }}>
           <ModalHeader>
             {title}
-            {showCloseIcon && <img className="icon" src={isDarkMode ? CloseDark : CloseLight} onClick={onClose} />}
+            {showCloseIcon && <img className="icon" src={darkMode ? CloseDark : CloseLight} onClick={onClose} />}
           </ModalHeader>
           {children}
         </ModalBody>
