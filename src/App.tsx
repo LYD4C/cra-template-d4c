@@ -9,6 +9,7 @@ import Main from './pages/Main'
 import Test from './pages/Test'
 import { ThemeContext } from './helpers/hooks'
 import ToastContainer from './components/Toast/ToastContainer'
+import Header from './components/Header'
 
 function App() {
   const [darkMode, setDarkMode] = useState(true)
@@ -19,6 +20,7 @@ function App() {
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
           <LoadingProvider>
             <GlobalStyle />
+            <Header />
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="/test" element={<Test />} />
