@@ -1,6 +1,6 @@
 import { Button as MButton } from '@material-ui/core'
 import styled from 'styled-components'
-import { defaultTheme } from '../../styled'
+import { defaultTheme } from '../../style'
 
 const ButtonWrapper = styled(MButton)`
   &.MuiButton-contained {
@@ -27,9 +27,9 @@ const ButtonWrapper = styled(MButton)`
     }
   }
   &.MuiButton-outlined {
-    background-color: ${props => props.theme.headerBgColor};
-    color: ${props => props.theme.fontColor};
-    border-color: ${props => props.theme.fontColor};
+    background-color: ${props => props.theme.grey1};
+    color: ${props => props.theme.grey1};
+    border-color: ${props => props.theme.grey1};
     border-radius: 180px;
     font-weight: 400;
     text-transform: none;

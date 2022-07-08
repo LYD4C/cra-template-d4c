@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { flexCenter } from '../../styled'
+import { flexCenter } from '../../style'
 
 const HeaderWrapper = styled.div`
   position: sticky;
@@ -10,7 +10,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 20px 160px;
-  background-color: ${props => props.theme.headerBgColor};
+  background-color: ${props => props.theme.grey1};
   border-bottom: 1px solid ${props => props.theme.borderColor};
   .row {
     ${flexCenter};
@@ -21,7 +21,7 @@ const LogoWrapper = styled.div`
   ${flexCenter};
   flex-direction: row;
   align-items: center;
-  color: ${props => props.theme.fontColor};
+  color: ${props => props.theme.grey1};
   font-size: 26px;
   font-weight: bold;
   cursor: pointer;

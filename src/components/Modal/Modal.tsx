@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from '../../helpers/hooks'
 
-import { flexCenter } from '../../styled'
+import { flexCenter } from '../../style'
 import CloseDark from './close-dark-icon.svg'
 import CloseLight from './close-light-icon.svg'
 

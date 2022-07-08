@@ -2,8 +2,18 @@ import { createGlobalStyle, DefaultTheme } from 'styled-components'
 
 
 const defaultTheme = {
-  primaryColor: '#3772FF',
-  grey1: '#777E90',
+  grey1: '',
+  grey2: '',
+  grey3: '',
+  grey4: '',
+  grey5: '',
+  fontLargest: '',
+  fontLarge: '',
+  fontNormal: '',
+  fontSmall: '',
+  fontSmaller: '',
+  primaryColor: '',
+  borderColor: '',
 }
 
 const darkTheme: DefaultTheme = {
