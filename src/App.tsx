@@ -10,6 +10,7 @@ import Test from './pages/Test'
 import { ThemeContext } from './helpers/hooks'
 import ToastContainer from './components/Toast/ToastContainer'
 import Header from './components/Header'
+import Web3Manager from './web3Manager'
 
 function App() {
   const [darkMode, setDarkMode] = useState(true)
@@ -21,10 +22,12 @@ function App() {
           <LoadingProvider>
             <GlobalStyle />
             <Header />
-            <Routes>
-              <Route path="/" element={<Main />} />
-              <Route path="/test" element={<Test />} />
-            </Routes>
+            <Web3Manager>
+              <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/test" element={<Test />} />
+              </Routes>
+            </Web3Manager>
             <ToastContainer />
           </LoadingProvider>
         </ThemeProvider>

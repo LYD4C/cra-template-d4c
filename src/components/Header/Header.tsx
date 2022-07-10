@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { flexCenter } from '../../style'
+import Wallet from '../Wallet'
 
 const HeaderWrapper = styled.div`
   position: sticky;
@@ -42,6 +43,7 @@ const Header: React.FC = () => {
   return (
     <HeaderWrapper >
       <LogoWrapper />
+      <Wallet />
     </HeaderWrapper>
   )
 }

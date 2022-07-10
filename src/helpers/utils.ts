@@ -10,4 +10,8 @@ const chunk = (arr: any[], num: number) => {
   })
 }
 
-export { shortenAddress, chunk }
+const decimalToHex = (decimal: number) => {
+  return `0x${decimal.toString(16)}`
+}
+
+export { shortenAddress, chunk, decimalToHex }

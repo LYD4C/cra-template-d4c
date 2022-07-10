@@ -3,8 +3,7 @@ import Fade from '@material-ui/core/Fade'
 import { useContext } from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from '../../helpers/hooks'
-
-import { flexCenter } from '../../style'
+import { defaultTheme, flexCenter } from '../../style'
 import CloseDark from './close-dark-icon.svg'
 import CloseLight from './close-light-icon.svg'
 
@@ -19,6 +18,17 @@ const ModalBody = styled.div`
 const ModalHeader = styled.div`
   ${flexCenter};
   position: relative;
+  padding: 32px 20px;
+  font-weight: 600;
+  font-size: ${defaultTheme.fontLarge};
+  .icon {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
 `
 
 interface ModalProps {
@@ -50,7 +60,7 @@ const Modal: React.FC<ModalProps> = ({
         <ModalBody style={{ width: (width ?? 0) > 0 ? `${width}px` : 'auto' }}>
           <ModalHeader>
             {title}
-            {showCloseIcon && <img className="icon" src={darkMode ? CloseDark : CloseLight} onClick={onClose} />}
+            {showCloseIcon && <img className="icon" src={!darkMode ? CloseDark : CloseLight} onClick={onClose} />}
           </ModalHeader>
           {children}
         </ModalBody>
