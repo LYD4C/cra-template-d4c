@@ -4,7 +4,7 @@ import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
-import { NetworkContextName } from './web3'
+import { NetworkContextName } from './web3/chain'
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 

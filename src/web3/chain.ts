@@ -2,18 +2,18 @@ import { InjectedConnector } from '@web3-react/injected-connector'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import MetamaskIcon from './images/metamask.png'
 import { decimalToHex } from '../helpers/utils'
+import OpIcon from './images/optimism_logo.svg'
+import BscIcon from './images/bsc_logo.png'
 
 export enum ChainId {
-  MAINNET = 1,
-  ROPSTEN = 3,
-  RINKEBY = 4,
-  GÖRLI = 5,
-  KOVAN = 42,
   BSC_TEST = 97,
+  OPTIMISM = 10
 }
+// 默认显示的链
+export const DEFAULT_NETWORK = ChainId.BSC_TEST
 export const NetworkContextName = 'NETWORK'
 
-export const SUPPORTED_CHAIN_IDS = [1, 3, 4, 5, 42, 97]
+export const SUPPORTED_CHAIN_IDS = [97, 10]
 
 const injected = new InjectedConnector({
   supportedChainIds: SUPPORTED_CHAIN_IDS,
@@ -38,17 +38,13 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
   },
 }
 
-// export const NETWORK_CHAIN_ID: number = 1
-
-// export const network = new NetworkConnector({
-//   urls: { [NETWORK_CHAIN_ID]: '' },
-// })
-
 interface NetworkConfig {
   [key: number]: {
     chainId: typeof SUPPORTED_CHAIN_IDS;
     chainName: string;
     rpcUrls: string[];
+    logo: string;
+    explorer: string;
     nativeCurrency: {
       name: string;
       symbol: string;
@@ -61,19 +57,23 @@ export const NETWORK_CONFIG: NetworkConfig = {
     chainId: [ChainId.BSC_TEST],
     chainName: 'BSC_Testnet',
     rpcUrls: ['https://speedy-nodes-nyc.moralis.io/183208d8487f74a9dccbc1c7/bsc/testnet'],
+    logo: BscIcon,
+    explorer: 'https://testnet.bscscan.com/',
     nativeCurrency: {
       name: 'BNB',
       symbol: 'BNB',
       decimals: 18,
     },
   },
-  [ChainId.ROPSTEN]: {
-    chainId: [ChainId.ROPSTEN],
-    chainName: 'Ropsten_Testnet',
-    rpcUrls: ['https://rpc.ankr.com/eth_ropsten'],
+  [ChainId.OPTIMISM]: {
+    chainId: [ChainId.OPTIMISM],
+    chainName: 'Optimism',
+    rpcUrls: ['https://mainnet.optimism.io'],
+    logo: OpIcon,
+    explorer: 'https://optimistic.etherscan.io/',
     nativeCurrency: {
-      name: 'ROP',
-      symbol: 'ROP',
+      name: 'ETH',
+      symbol: 'ETH',
       decimals: 18,
     },
   },
@@ -96,14 +96,11 @@ export const changeNetwork = (chainId: number) => {
               rpcUrls: [...NETWORK_CONFIG[chainId].rpcUrls],
             }],
           }).catch(() => rejects())
+        } else {
+          rejects()
         }
       }).catch(() => rejects())
     }
   })
 }
 
-// let networkLibrary: Web3Provider | undefined
-// export function getNetworkLibrary(): Web3Provider {
-//   // eslint-disable-next-line no-return-assign
-//   return (networkLibrary = networkLibrary ?? new Web3Provider(network.provider as any))
-// }

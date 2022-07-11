@@ -15,7 +15,7 @@ const typeIcon: {[key in ToastType]: any} = {
 
 const toast = ({
   text = '',
-  type = 'error',
+  type = 'success',
 }: ToastProps) => {
   return RToast(text, {
     type,

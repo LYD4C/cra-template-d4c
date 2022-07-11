@@ -9,13 +9,12 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 8px 16px;
-  border-radius: 90px;
-  border: 1px solid ${defaultTheme.primaryColor};
+  border-radius: 20px;
   color: ${defaultTheme.grey1};
   font-size: ${defaultTheme.fontNormal};
   line-height: 19px;
   cursor: pointer;
-  font-family: MiSans-Normal;
+  background-color: #0057FF;
   .logo {
     width: 16px;
     height: 16px;

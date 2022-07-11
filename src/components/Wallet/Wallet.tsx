@@ -3,7 +3,7 @@ import WalletIcon from './images/wallet-icon.svg'
 import { useEffect, useRef, useState } from 'react'
 import { useActiveWeb3React } from '../../helpers/hooks'
 import Modal from '../Modal'
-import { SUPPORTED_WALLETS } from '../../web3'
+import { SUPPORTED_WALLETS } from '../../web3/chain'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import toast from '../Toast/Toast'
 import { shortenAddress } from '../../helpers/utils'
@@ -12,31 +12,39 @@ import { useClipboard } from 'use-clipboard-copy'
 import NetworkSelector from './NetworkSelector'
 
 const WALLET_ID = 'walletAnchorId'
+const LOACL_ACCOUNT = 'localAddress'
 
 const Wallet: React.FC = () => {
   const [showDisconnectModal, setShowDisconnectModal] = useState(false)
   const {
-    active, account, chainId, activate, deactivate,
+    active, account, activate, deactivate,
   } = useActiveWeb3React()
   const [showPopover, setShowPopover] = useState(false)
   const anchorElRef = useRef<HTMLDivElement>(null)
   const clipboard = useClipboard()
 
   useEffect(() => {
-    console.log('current', chainId)
-  }, [chainId])
+    if (!localStorage.getItem(LOACL_ACCOUNT)) return
+    handleConnect(SUPPORTED_WALLETS.METAMASK.connector!)
+  }, [])
+
+  useEffect(() => {
+    if (!account) return
+    localStorage.setItem(LOACL_ACCOUNT, account)
+  }, [account])
 
   const handleConnect = (cuurentConnector: AbstractConnector) => {
     activate(cuurentConnector, undefined, true).then(() => {
       setShowDisconnectModal(false)
     }).catch(err => {
-      toast({ text: err, type: 'error' })
+      toast({ text: err.name, type: 'error' })
     })
   }
   // 断开钱包链接
   const handleDisconnect = () => {
     deactivate()
     setShowPopover(false)
+    localStorage.removeItem(LOACL_ACCOUNT)
   }
 
   const handleCopy = (value: string) => {
@@ -51,7 +59,7 @@ const Wallet: React.FC = () => {
   if (!active && !account) {
     return (
       <>
-        <NetworkSelector />
+        <NetworkSelector handleNoWallet={() => setShowDisconnectModal(true)} />
         <Wrapper onClick={() => setShowDisconnectModal(true)}>
           <img className="logo" src={WalletIcon} />
           Connect Wallet
