@@ -89,7 +89,13 @@ export const changeNetwork = (chainId: number) => {
       ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: decimalToHex(chainId) }],
-      }).then(() => reslove()).catch((switchError: any) => {
+      }).then(() => {
+        if (ethereum && ethereum.on) {
+          ethereum.on('chainChanged', () => {
+            reslove()
+          })
+        }
+      }).catch((switchError: any) => {
         if (switchError.code === 4902) {
           ethereum.reques({
             method: 'wallet_addEthereumChain',

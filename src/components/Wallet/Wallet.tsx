@@ -27,7 +27,6 @@ const Wallet: React.FC = () => {
   const loading = useLoading()
 
   useEffect(() => {
-    console.log('getCurrent', getCurrentChainId())
     if ((!localStorage.getItem(LOACL_ACCOUNT) && isDesktop)
       || !DEFAULT_WALLET.connector
     ) return
@@ -76,12 +75,34 @@ const Wallet: React.FC = () => {
     loading.show()
     changeNetwork(DEFAULT_NETWORK).then(() => {
       setSwitchChainModal(false)
-      window.ethereum.on('chainChanged', () => connectWallet(DEFAULT_WALLET.connector!))
+      connectWallet(DEFAULT_WALLET.connector!)
     }).catch(() => {
       toast({ text: 'Something Wrong.Please try again', type: 'error' })
     }).finally(() => loading.hide())
   }
-
+  const DisconnectModal = () => {
+    return (
+      <Modal
+        open={showDisconnectModal}
+        title="Connect Wallet"
+        onClose={() => setShowDisconnectModal(false)}
+      >
+        <WalletModal>
+          {
+          Object.keys(SUPPORTED_WALLETS).map(key => {
+            const option = SUPPORTED_WALLETS[key]
+            return (
+              <div className="label" key={key} onClick={() => handleConnect(option.connector!)}>
+                {option.name}
+                <img className="icon" src={option.iconName} />
+              </div>
+            )
+          })
+        }
+        </WalletModal>
+      </Modal>
+    )
+  }
   if (!active && !account) {
     return (
       <>
@@ -90,25 +111,7 @@ const Wallet: React.FC = () => {
           <img className="logo" src={WalletIcon} />
           Connect Wallet
         </Wrapper>
-        <Modal
-          open={showDisconnectModal}
-          title="Connect Wallet"
-          onClose={() => setShowDisconnectModal(false)}
-        >
-          <WalletModal>
-            {
-              Object.keys(SUPPORTED_WALLETS).map(key => {
-                const option = SUPPORTED_WALLETS[key]
-                return (
-                  <div className="label" key={key} onClick={() => handleConnect(option.connector!)}>
-                    {option.name}
-                    <img className="icon" src={option.iconName} />
-                  </div>
-                )
-              })
-            }
-          </WalletModal>
-        </Modal>
+        <DisconnectModal />
         <Modal
           title="Wrong Network"
           open={switchChainModal}
@@ -141,7 +144,7 @@ const Wallet: React.FC = () => {
               <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
             </div>
             <div className="desc">Connected with MetaMask</div>
-            <Button text="Change" variant="outlined" />
+            <Button text="Change" variant="outlined" onClick={() => setShowDisconnectModal(true)} />
           </div>
           <a
             className="label"
@@ -153,6 +156,7 @@ const Wallet: React.FC = () => {
           <div className="label" onClick={handleDisconnect}>Disconnect</div>
         </AccountModal>
       </Modal>
+      <DisconnectModal />
     </>
   )
 }
