@@ -1,31 +1,37 @@
-import { PopoverContent, WalletModal, Wrapper } from './WalletStyle'
+import { AccountModal, WalletModal, Wrapper } from './WalletStyle'
 import WalletIcon from './images/wallet-icon.svg'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useActiveWeb3React } from '../../helpers/hooks'
 import Modal from '../Modal'
-import { SUPPORTED_WALLETS } from '../../web3/chain'
+import { changeNetwork, DEFAULT_NETWORK, DEFAULT_WALLET, getCurrentChainId, NETWORK_CONFIG, SUPPORTED_CHAIN_IDS, SUPPORTED_WALLETS } from '../../web3/chain'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import toast from '../Toast/Toast'
-import { shortenAddress } from '../../helpers/utils'
-import Popover from '../Popover'
+import { isDesktop, shortenAddress } from '../../helpers/utils'
 import { useClipboard } from 'use-clipboard-copy'
 import NetworkSelector from './NetworkSelector'
+import WalletWarningIcon from './images/wallet-warning.png'
+import CopyIcon from './images/copy.svg'
+import Button from '../Button'
+import { useLoading } from '../Loading/Loading'
 
-const WALLET_ID = 'walletAnchorId'
-const LOACL_ACCOUNT = 'localAddress'
+const LOACL_ACCOUNT = 'localAccount'
 
 const Wallet: React.FC = () => {
   const [showDisconnectModal, setShowDisconnectModal] = useState(false)
   const {
-    active, account, activate, deactivate,
+    active, account, chainId, activate, deactivate,
   } = useActiveWeb3React()
-  const [showPopover, setShowPopover] = useState(false)
-  const anchorElRef = useRef<HTMLDivElement>(null)
   const clipboard = useClipboard()
+  const [switchChainModal, setSwitchChainModal] = useState(false)
+  const [showAccountModal, setShowAccountModal] = useState(false)
+  const loading = useLoading()
 
   useEffect(() => {
-    if (!localStorage.getItem(LOACL_ACCOUNT)) return
-    handleConnect(SUPPORTED_WALLETS.METAMASK.connector!)
+    console.log('getCurrent', getCurrentChainId())
+    if ((!localStorage.getItem(LOACL_ACCOUNT) && isDesktop)
+      || !DEFAULT_WALLET.connector
+    ) return
+    handleConnect(DEFAULT_WALLET.connector)
   }, [])
 
   useEffect(() => {
@@ -34,6 +40,9 @@ const Wallet: React.FC = () => {
   }, [account])
 
   const handleConnect = (cuurentConnector: AbstractConnector) => {
+    connectWallet(cuurentConnector)
+  }
+  const connectWallet = (cuurentConnector: AbstractConnector) => {
     activate(cuurentConnector, undefined, true).then(() => {
       setShowDisconnectModal(false)
     }).catch(err => {
@@ -43,24 +52,41 @@ const Wallet: React.FC = () => {
   // 断开钱包链接
   const handleDisconnect = () => {
     deactivate()
-    setShowPopover(false)
+    setShowAccountModal(false)
     localStorage.removeItem(LOACL_ACCOUNT)
   }
 
   const handleCopy = (value: string) => {
     if (clipboard.isSupported()) {
       clipboard.copy(value)
-      setShowPopover(false)
-      toast({ text: 'copy success', type: 'success' })
+      setShowAccountModal(false)
+      toast({ text: 'copy success' })
     }
   }
 
+  const handleShowDisconnectModal = () => {
+    if (!SUPPORTED_CHAIN_IDS.includes(getCurrentChainId())) {
+      setSwitchChainModal(true)
+      return
+    }
+    setShowDisconnectModal(true)
+  }
+
+  const handleConnectNetwork = () => {
+    loading.show()
+    changeNetwork(DEFAULT_NETWORK).then(() => {
+      setSwitchChainModal(false)
+      window.ethereum.on('chainChanged', () => connectWallet(DEFAULT_WALLET.connector!))
+    }).catch(() => {
+      toast({ text: 'Something Wrong.Please try again', type: 'error' })
+    }).finally(() => loading.hide())
+  }
 
   if (!active && !account) {
     return (
       <>
         <NetworkSelector handleNoWallet={() => setShowDisconnectModal(true)} />
-        <Wrapper onClick={() => setShowDisconnectModal(true)}>
+        <Wrapper onClick={handleShowDisconnectModal}>
           <img className="logo" src={WalletIcon} />
           Connect Wallet
         </Wrapper>
@@ -83,26 +109,50 @@ const Wallet: React.FC = () => {
             }
           </WalletModal>
         </Modal>
+        <Modal
+          title="Wrong Network"
+          open={switchChainModal}
+          onClose={() => setSwitchChainModal(false)}
+        >
+          <WalletModal>
+            <img className="img" src={WalletWarningIcon} />
+            <div className="content">Please switch to a currently supported network </div>
+            <Button onClick={handleConnectNetwork} text="Switch Network" />
+          </WalletModal>
+        </Modal>
       </>
     )
   }
   return (
     <>
       <NetworkSelector />
-      <Wrapper aria-describedby={WALLET_ID} ref={anchorElRef} onClick={() => setShowPopover(true)} >
+      <Wrapper onClick={() => setShowAccountModal(true)}>
         {shortenAddress(account!)}
       </Wrapper>
-      <Popover
-        open={showPopover}
-        id={WALLET_ID}
-        anchorEl={anchorElRef.current}
-        onClose={() => setShowPopover(false)}
+      <Modal
+        title="Account"
+        open={showAccountModal}
+        onClose={() => setShowAccountModal(false)}
       >
-        <PopoverContent>
-          <div className="label" onClick={() => handleCopy(account!)}>Copy address</div>
+        <AccountModal>
+          <div className="content">
+            <div className="row">
+              {shortenAddress(account!)}
+              <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
+            </div>
+            <div className="desc">Connected with MetaMask</div>
+            <Button text="Change" variant="outlined" />
+          </div>
+          <a
+            className="label"
+            href={`${NETWORK_CONFIG[chainId!].explorer}/address/${account}`}
+            target="_blank"
+            rel="noreferrer"
+          >view on explorer
+          </a>
           <div className="label" onClick={handleDisconnect}>Disconnect</div>
-        </PopoverContent>
-      </Popover>
+        </AccountModal>
+      </Modal>
     </>
   )
 }

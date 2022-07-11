@@ -38,6 +38,9 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
   },
 }
 
+// 默认的钱包
+export const DEFAULT_WALLET = SUPPORTED_WALLETS.METAMASK
+
 interface NetworkConfig {
   [key: number]: {
     chainId: typeof SUPPORTED_CHAIN_IDS;
@@ -102,5 +105,10 @@ export const changeNetwork = (chainId: number) => {
       }).catch(() => rejects())
     }
   })
+}
+
+export const getCurrentChainId = () => {
+  const { ethereum } = window
+  return Number(ethereum.chainId)
 }
 

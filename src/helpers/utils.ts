@@ -14,4 +14,11 @@ const decimalToHex = (decimal: number) => {
   return `0x${decimal.toString(16)}`
 }
 
-export { shortenAddress, chunk, decimalToHex }
+let isDesktop = false
+if (typeof document !== 'undefined') {
+  if (window.innerWidth >= 992) {
+    isDesktop = true
+  }
+}
+
+export { shortenAddress, chunk, decimalToHex, isDesktop }

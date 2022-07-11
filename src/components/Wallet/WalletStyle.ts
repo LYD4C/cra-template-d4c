@@ -48,28 +48,64 @@ const WalletModal = styled.div`
     padding: 20px 0;
     text-align: center;
   }
+  .img {
+    width: 105px;
+    height: 105px;
+    margin: 0 auto;
+  }
 
 `
-const PopoverContent = styled.div`
-  ${flexCenter};
-  padding: 16px;
+
+const AccountModal = styled.div`
+  padding: 0 24px 40px 24px;
+  width: 480px;
+  .content {
+    position: relative;
+    .row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 20px;
+      color: #101010;
+      line-height: 23px;
+      margin-bottom: 12px;
+      .copy-icon {
+        width: 24px;
+        height: 24px;
+        margin-left: 12px;
+        cursor: pointer;
+      }
+    }
+    .desc {
+      color: #999999;
+      line-height: 15px;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+    button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 108px;
+      height: 54px;
+      border-radius: 8px;
+    }
+  }
   .label {
     ${flexCenter};
     flex-direction: row;
     justify-content: center;
     border-radius: 8px;
-    width: 280px;
     padding: 16px 0;
     margin-top: 8px;
     cursor: pointer;
     font-weight: 500;
-    font-family: MiSans-Normal;
+    background: #F4F5F6;
     :hover {
       color: #FCFCFD;
       background-color: ${defaultTheme.primaryColor};
     }
   }
-
 `
 
-export { Wrapper, WalletModal, PopoverContent }
+export { Wrapper, WalletModal, AccountModal }
