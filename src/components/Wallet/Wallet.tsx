@@ -17,9 +17,8 @@ import jazzicon from '@metamask/jazzicon'
 
 const LOACL_ACCOUNT = 'localAccount'
 const ACCOUNT_CHANGED = 'accountsChanged'
-const DISCONNECT = 'disconnect'
 const WALLET_CLOSED = 'walletClosed'
-
+// 钱包头像
 const Identicon: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null)
   const { account } = useActiveWeb3React()
@@ -46,6 +45,7 @@ const Wallet: React.FC = () => {
   useEffect(() => {
     if ((!localStorage.getItem(LOACL_ACCOUNT) && isDesktop)
       || !DEFAULT_WALLET.connector
+      || !SUPPORTED_CHAIN_IDS.includes(getCurrentChainId())
     ) return
     handleConnect(DEFAULT_WALLET.connector)
   }, [])
@@ -66,9 +66,6 @@ const Wallet: React.FC = () => {
           if (!accounts.length) {
             handleDisconnect()
           }
-        })
-        ethereum.on(DISCONNECT, () => {
-          handleDisconnect()
         })
         ethereum.on(WALLET_CLOSED, () => {
           handleDisconnect()
@@ -111,6 +108,7 @@ const Wallet: React.FC = () => {
       toast({ text: 'Something Wrong.Please try again', type: 'error' })
     }).finally(() => loading.hide())
   }
+
   const DisconnectModal = () => {
     return (
       <Modal
@@ -137,7 +135,7 @@ const Wallet: React.FC = () => {
   if (!active && !account) {
     return (
       <>
-        <NetworkSelector handleNoWallet={() => setShowDisconnectModal(true)} />
+        <NetworkSelector handleNoWallet={handleShowDisconnectModal} />
         <Wrapper onClick={handleShowDisconnectModal}>
           <img className="logo" src={WalletIcon} />
           Connect Wallet
