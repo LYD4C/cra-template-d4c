@@ -34,7 +34,7 @@ const Identicon: React.FC = () => {
 const Wallet: React.FC = () => {
   const [showDisconnectModal, setShowDisconnectModal] = useState(false)
   const {
-    active, account, chainId, activate, deactivate,
+    active, account, chainId, connector, activate, deactivate,
   } = useActiveWeb3React()
   const clipboard = useClipboard()
   const [switchChainModal, setSwitchChainModal] = useState(false)
@@ -112,7 +112,7 @@ const Wallet: React.FC = () => {
       toast({ text: 'Something Wrong.Please try again', type: 'error' })
     }).finally(() => loading.hide())
   }
-
+  // 未连接弹窗
   const DisconnectModal = () => {
     return (
       <Modal
@@ -136,6 +136,14 @@ const Wallet: React.FC = () => {
       </Modal>
     )
   }
+  // 处理当前连接的钱包名称
+  const formatConnectorName = () => {
+    const isMetaMask = !!(ethereum && ethereum.isMetaMask)
+    const name = Object.keys(SUPPORTED_WALLETS).filter(k =>
+      SUPPORTED_WALLETS[k].connector === connector && (isMetaMask === (k === 'METAMASK'))).map(k => SUPPORTED_WALLETS[k].name)[0]
+    return name
+  }
+
   if (!active && !account) {
     return (
       <>
@@ -177,7 +185,7 @@ const Wallet: React.FC = () => {
               {shortenAddress(account!)}
               <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
             </div>
-            <div className="desc">Connected with {ethereum.isMetaMask ? 'MeTaMask' : ''}</div>
+            <div className="desc">Connected with {formatConnectorName()}</div>
             <Button text="Change" variant="outlined" onClick={() => setShowDisconnectModal(true)} />
           </div>
           <a
