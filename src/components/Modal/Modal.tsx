@@ -4,8 +4,8 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from '../../helpers/hooks'
 import { defaultTheme, flexCenter } from '../../style'
-import CloseDark from './close-dark-icon.svg'
-import CloseLight from './close-light-icon.svg'
+import CloseDark from '../../images/close-dark-icon.svg'
+import CloseLight from '../../images/close-light-icon.svg'
 
 const ModalBody = styled.div`
   position: absolute;

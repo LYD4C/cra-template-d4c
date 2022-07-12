@@ -113,4 +113,12 @@ const AccountModal = styled.div`
   }
 `
 
-export { Wrapper, WalletModal, AccountModal }
+const AccountDrawer = styled(AccountModal)`
+  padding:40px 0;
+  width: 100%;
+  .content {
+    align-items: center;
+  }
+`
+
+export { Wrapper, WalletModal, AccountModal, AccountDrawer }

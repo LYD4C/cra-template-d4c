@@ -1,4 +1,4 @@
-import { AccountModal, WalletModal, Wrapper } from './WalletStyle'
+import { AccountDrawer, AccountModal, WalletModal, Wrapper } from './WalletStyle'
 import WalletIcon from './images/wallet-icon.svg'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useActiveWeb3React } from '../../helpers/hooks'
@@ -14,6 +14,7 @@ import CopyIcon from './images/copy.svg'
 import Button from '../Button'
 import { useLoading } from '../Loading/Loading'
 import jazzicon from '@metamask/jazzicon'
+import Drawer from '../Drawer'
 
 const LOACL_ACCOUNT = 'localAccount'
 const ACCOUNT_CHANGED = 'accountsChanged'
@@ -173,9 +174,33 @@ const Wallet: React.FC = () => {
       <Wrapper onClick={() => setShowAccountModal(true)}>
         {shortenAddress(account!)}
       </Wrapper>
+      <Drawer
+        open={showAccountModal && !isDesktop}
+        onClose={() => setShowAccountModal(false)}
+      >
+        <AccountDrawer>
+          <div className="content">
+            <div className="row">
+              <div className="avatar"><Identicon /></div>
+              {shortenAddress(account!)}
+              <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
+            </div>
+            <div className="desc">Connected with {formatConnectorName()}</div>
+          </div>
+          <div className="label" onClick={() => setShowDisconnectModal(true)}>Change</div>
+          <a
+            className="label"
+            href={`${NETWORK_CONFIG[chainId!].explorer}/address/${account}`}
+            target="_blank"
+            rel="noreferrer"
+          >view on explorer
+          </a>
+          <div className="label" onClick={handleDisconnect}>Disconnect</div>
+        </AccountDrawer>
+      </Drawer>
       <Modal
         title="Account"
-        open={showAccountModal}
+        open={showAccountModal && isDesktop}
         onClose={() => setShowAccountModal(false)}
       >
         <AccountModal>

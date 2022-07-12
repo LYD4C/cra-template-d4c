@@ -21,4 +21,6 @@ if (typeof document !== 'undefined') {
   }
 }
 
-export { shortenAddress, chunk, decimalToHex, isDesktop }
+const ios = /iPad|iPhone|iPod/.test(navigator.userAgent)
+
+export { shortenAddress, chunk, decimalToHex, isDesktop, ios }
