@@ -96,6 +96,9 @@ export const changeNetwork = (chainId: number) => {
           ethereum.on(CHAIN_CHANGED, () => {
             reslove()
           })
+          return () => {
+            ethereum.removeListener(CHAIN_CHANGED)
+          }
         }
       }).catch((switchError: any) => {
         if (switchError.code === 4902) {

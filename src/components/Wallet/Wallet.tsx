@@ -45,7 +45,6 @@ const Wallet: React.FC = () => {
   useEffect(() => {
     if ((!localStorage.getItem(LOACL_ACCOUNT) && isDesktop)
       || !DEFAULT_WALLET.connector
-      || !SUPPORTED_CHAIN_IDS.includes(getCurrentChainId())
     ) return
     handleConnect(DEFAULT_WALLET.connector)
   }, [])
@@ -70,9 +69,14 @@ const Wallet: React.FC = () => {
         ethereum.on(WALLET_CLOSED, () => {
           handleDisconnect()
         })
+        return () => {
+          ethereum.removeListener(WALLET_CLOSED)
+          ethereum.removeListener(ACCOUNT_CHANGED)
+        }
       }
       setShowDisconnectModal(false)
     }).catch(err => {
+      if (err.name === 'UnsupportedChainIdError') return
       toast({ text: err.name, type: 'error' })
     })
   }
