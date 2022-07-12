@@ -69,6 +69,11 @@ const AccountModal = styled.div`
       color: #101010;
       line-height: 23px;
       margin-bottom: 12px;
+      .avatar {
+        width: 32px;
+        height: 32px;
+        margin-right: 12px;
+      }
       .copy-icon {
         width: 24px;
         height: 24px;

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useActiveWeb3React } from '../../helpers/hooks'
 import { flexCenter } from '../../style'
@@ -109,9 +109,6 @@ const NetworkSelector: React.FC<NetworkProps> = ({ handleNoWallet }) => {
   const anchorElRef = useRef<HTMLDivElement>(null)
   const [show, setShow] = useState(false)
   const loading = useLoading()
-  useEffect(() => {
-    console.log('chainId', chainId)
-  }, [chainId])
 
   const onSelectChain = (id: number) => {
     if (!active && handleNoWallet) {
@@ -131,7 +128,7 @@ const NetworkSelector: React.FC<NetworkProps> = ({ handleNoWallet }) => {
   // 已连接的网络
   const activeNetwork = (id: number) => {
     return (
-      <SelectdWrapper>
+      <SelectdWrapper key={id}>
         <div className="label">
           <img className="logo" src={NETWORK_CONFIG[id].logo} />
           {NETWORK_CONFIG[id].chainName}

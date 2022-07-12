@@ -13,6 +13,8 @@ if ('ethereum' in window) {
 }
 
 const getLibrary = (provider: any): Web3Provider => {
+  // 这里应该判断是否支持当前钱包
+  console.log(provider)
   const library = new Web3Provider(provider, 'any')
   library.pollingInterval = 15000
   return library

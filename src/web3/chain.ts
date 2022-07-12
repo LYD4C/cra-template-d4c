@@ -82,6 +82,8 @@ export const NETWORK_CONFIG: NetworkConfig = {
   },
 }
 
+const CHAIN_CHANGED = 'chainChanged'
+
 export const changeNetwork = (chainId: number) => {
   return new Promise<void>((reslove, rejects) => {
     const { ethereum } = window
@@ -91,12 +93,16 @@ export const changeNetwork = (chainId: number) => {
         params: [{ chainId: decimalToHex(chainId) }],
       }).then(() => {
         if (ethereum && ethereum.on) {
-          ethereum.on('chainChanged', () => {
+          ethereum.on(CHAIN_CHANGED, () => {
             reslove()
           })
         }
       }).catch((switchError: any) => {
         if (switchError.code === 4902) {
+          if (!NETWORK_CONFIG[chainId]) {
+            rejects()
+            return
+          }
           ethereum.reques({
             method: 'wallet_addEthereumChain',
             params: [{
