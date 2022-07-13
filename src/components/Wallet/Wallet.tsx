@@ -60,6 +60,7 @@ const Wallet: React.FC = () => {
   }
   const connectWallet = (cuurentConnector: AbstractConnector) => {
     activate(cuurentConnector, undefined, true).then(() => {
+      setShowDisconnectModal(false)
       // 这里需要监听事件
       if (ethereum && ethereum.isMetaMask) {
         ethereum.on(ACCOUNT_CHANGED, (accounts: string[]) => {
@@ -75,7 +76,6 @@ const Wallet: React.FC = () => {
           ethereum.removeListener(ACCOUNT_CHANGED)
         }
       }
-      setShowDisconnectModal(false)
     }).catch(err => {
       if (err.name === 'UnsupportedChainIdError') return
       toast({ text: err.name, type: 'error' })
