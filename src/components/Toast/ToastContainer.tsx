@@ -4,9 +4,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import styled from 'styled-components'
 
 const StyledContainer = styled(Container)`
-  .Toastify__toast-container {
-    width: fit-content !important;
-  }
   .Toastify__toast {
     flex-direction: row;
     padding: 0;
@@ -30,6 +27,7 @@ const StyledContainer = styled(Container)`
 const ToastContainer: React.FC = () => {
   return (
     <StyledContainer
+      style={{ width: 'fit-content' }}
       position="top-center"
       autoClose={3000}
       hideProgressBar

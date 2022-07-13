@@ -1,6 +1,6 @@
-import { AccountDrawer, AccountModal, WalletModal, Wrapper } from './WalletStyle'
+import { AccountDrawer, AccountModal, H5BottomWrapper, WalletModal, WalletWrapper } from './WalletStyle'
 import WalletIcon from './images/wallet-icon.svg'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useActiveWeb3React } from '../../helpers/hooks'
 import Modal from '../Modal'
 import { changeNetwork, DEFAULT_NETWORK, DEFAULT_WALLET, getCurrentChainId, NETWORK_CONFIG, SUPPORTED_CHAIN_IDS, SUPPORTED_WALLETS } from '../../web3/chain'
@@ -13,24 +13,14 @@ import WalletWarningIcon from './images/wallet-warning.png'
 import CopyIcon from './images/copy.svg'
 import Button from '../Button'
 import { useLoading } from '../Loading/Loading'
-import jazzicon from '@metamask/jazzicon'
 import Drawer from '../Drawer'
+import Identicon from './Identicon'
 
 const LOACL_ACCOUNT = 'localAccount'
 const ACCOUNT_CHANGED = 'accountsChanged'
 const WALLET_CLOSED = 'walletClosed'
 // 钱包头像
-const Identicon: React.FC = () => {
-  const ref = useRef<HTMLDivElement>(null)
-  const { account } = useActiveWeb3React()
-  useLayoutEffect(() => {
-    if (account && ref.current) {
-      ref.current.innerHTML = ''
-      ref.current.appendChild(jazzicon(32, parseInt(account.slice(2, 10), 16)))
-    }
-  }, [account])
-  return (<span ref={ref} />)
-}
+
 
 const Wallet: React.FC = () => {
   const [showDisconnectModal, setShowDisconnectModal] = useState(false)
@@ -145,59 +135,30 @@ const Wallet: React.FC = () => {
     return name
   }
 
-  if (!active && !account) {
-    return (
-      <>
-        <NetworkSelector handleNoWallet={handleShowDisconnectModal} />
-        <Wrapper onClick={handleShowDisconnectModal}>
+  const walletWrapper = () => {
+    if (!active && !account) {
+      return (
+        <WalletWrapper onClick={handleShowDisconnectModal}>
           <img className="logo" src={WalletIcon} />
           Connect Wallet
-        </Wrapper>
-        <DisconnectModal />
-        <Modal
-          title="Wrong Network"
-          open={switchChainModal}
-          onClose={() => setSwitchChainModal(false)}
-        >
-          <WalletModal>
-            <img className="img" src={WalletWarningIcon} />
-            <div className="content">Please switch to a currently supported network</div>
-            <Button onClick={handleConnectNetwork} text="Switch Network" />
-          </WalletModal>
-        </Modal>
-      </>
+        </WalletWrapper>
+      )
+    }
+    return (
+      <WalletWrapper onClick={() => setShowAccountModal(true)}>
+        <div className="avatar"><Identicon diameter={24} /></div>
+        {shortenAddress(account!)}
+      </WalletWrapper>
     )
   }
   return (
     <>
-      <NetworkSelector />
-      <Wrapper onClick={() => setShowAccountModal(true)}>
-        {shortenAddress(account!)}
-      </Wrapper>
-      <Drawer
-        open={showAccountModal && !isDesktop}
-        onClose={() => setShowAccountModal(false)}
-      >
-        <AccountDrawer>
-          <div className="content">
-            <div className="row">
-              <div className="avatar"><Identicon /></div>
-              {shortenAddress(account!)}
-              <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
-            </div>
-            <div className="desc">Connected with {formatConnectorName()}</div>
-          </div>
-          <div className="label" onClick={() => setShowDisconnectModal(true)}>Change</div>
-          <a
-            className="label"
-            href={`${NETWORK_CONFIG[chainId!].explorer}/address/${account}`}
-            target="_blank"
-            rel="noreferrer"
-          >view on explorer
-          </a>
-          <div className="label" onClick={handleDisconnect}>Disconnect</div>
-        </AccountDrawer>
-      </Drawer>
+      <NetworkSelector
+        handleNoWallet={!active && !account ? handleShowDisconnectModal : undefined}
+      />
+      {
+        isDesktop ? walletWrapper() : <H5BottomWrapper>{walletWrapper()}</H5BottomWrapper>
+      }
       <Modal
         title="Account"
         open={showAccountModal && isDesktop}
@@ -207,7 +168,7 @@ const Wallet: React.FC = () => {
           <div className="content">
             <div className="row">
               <div className="avatar"><Identicon /></div>
-              {shortenAddress(account!)}
+              {account && shortenAddress(account)}
               <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
             </div>
             <div className="desc">Connected with {formatConnectorName()}</div>
@@ -215,7 +176,7 @@ const Wallet: React.FC = () => {
           </div>
           <a
             className="label"
-            href={`${NETWORK_CONFIG[chainId!].explorer}/address/${account}`}
+            href={chainId && `${NETWORK_CONFIG[chainId].explorer}/address/${account}`}
             target="_blank"
             rel="noreferrer"
           >view on explorer
@@ -224,6 +185,42 @@ const Wallet: React.FC = () => {
         </AccountModal>
       </Modal>
       <DisconnectModal />
+      <Modal
+        title="Wrong Network"
+        open={switchChainModal}
+        onClose={() => setSwitchChainModal(false)}
+      >
+        <WalletModal>
+          <img className="img" src={WalletWarningIcon} />
+          <div className="content">Please switch to a currently supported network</div>
+          <Button onClick={handleConnectNetwork} text="Switch Network" />
+        </WalletModal>
+      </Modal>
+      {/* drawer h5 端抽屉 */}
+      <Drawer
+        open={showAccountModal && !isDesktop}
+        onClose={() => setShowAccountModal(false)}
+      >
+        <AccountDrawer>
+          <div className="content">
+            <div className="row">
+              <div className="avatar"><Identicon /></div>
+              {account && shortenAddress(account)}
+              <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
+            </div>
+            <div className="desc">Connected with {formatConnectorName()}</div>
+          </div>
+          <div className="label" onClick={() => setShowDisconnectModal(true)}>Change</div>
+          <a
+            className="label"
+            href={chainId && `${NETWORK_CONFIG[chainId].explorer}/address/${account}`}
+            target="_blank"
+            rel="noreferrer"
+          >view on explorer
+          </a>
+          <div className="label" onClick={handleDisconnect}>Disconnect</div>
+        </AccountDrawer>
+      </Drawer>
     </>
   )
 }

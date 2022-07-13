@@ -8,6 +8,7 @@ import Popover from '../Popover'
 import toast from '../Toast/Toast'
 import LinkIcon from './images/link.svg'
 import ArrowIcon from './images/arrow.svg'
+import { isDesktop } from '../../helpers/utils'
 
 const SelectorWrapper = styled.div`
   position: relative;
@@ -150,7 +151,7 @@ const NetworkSelector: React.FC<NetworkProps> = ({ handleNoWallet }) => {
         onClick={() => setShow(true)}
       >
         <img className="logo" src={NETWORK_CONFIG[chainId || DEFAULT_NETWORK].logo} />
-        {NETWORK_CONFIG[chainId || DEFAULT_NETWORK].chainName}
+        {isDesktop && NETWORK_CONFIG[chainId || DEFAULT_NETWORK].chainName}
         <img className="arrow" src={ArrowIcon} />
       </SelectorWrapper>
       <Popover

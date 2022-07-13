@@ -4,10 +4,11 @@ import {
 } from '../../style'
 
 
-const Wrapper = styled.div`
+const WalletWrapper = styled.div`
   ${flexCenter};
   flex-direction: row;
   justify-content: space-between;
+  height: fit-content;
   padding: 8px 16px;
   border-radius: 20px;
   color: ${defaultTheme.grey1};
@@ -18,6 +19,10 @@ const Wrapper = styled.div`
   .logo {
     width: 16px;
     height: 16px;
+    margin-right: 10px;
+  }
+  .avatar {
+    ${flexCenter};
     margin-right: 10px;
   }
 `
@@ -121,4 +126,19 @@ const AccountDrawer = styled(AccountModal)`
   }
 `
 
-export { Wrapper, WalletModal, AccountModal, AccountDrawer }
+const H5BottomWrapper = styled.div`
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 32px 32px 0px 0px;
+  height: 60px;
+  padding: 0 20px;
+`
+
+export { WalletWrapper, WalletModal, AccountModal, AccountDrawer, H5BottomWrapper }
