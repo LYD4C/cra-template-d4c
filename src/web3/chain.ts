@@ -59,12 +59,17 @@ export const NETWORK_CONFIG: NetworkConfig = {
   [ChainId.BSC_TEST]: {
     chainId: [ChainId.BSC_TEST],
     chainName: 'BSC_Testnet',
-    rpcUrls: ['https://speedy-nodes-nyc.moralis.io/183208d8487f74a9dccbc1c7/bsc/testnet'],
+    rpcUrls: [
+      'https://data-seed-prebsc-2-s3.binance.org:8545',
+      'https://data-seed-prebsc-1-s3.binance.org:8545',
+      'https://data-seed-prebsc-1-s2.binance.org:8545',
+      'https://data-seed-prebsc-2-s1.binance.org:8545',
+    ],
     logo: BscIcon,
     explorer: 'https://testnet.bscscan.com/',
     nativeCurrency: {
-      name: 'BNB',
-      symbol: 'BNB',
+      name: 'tBNB',
+      symbol: 'tBNB',
       decimals: 18,
     },
   },
@@ -106,14 +111,14 @@ export const changeNetwork = (chainId: number) => {
             rejects()
             return
           }
-          ethereum.reques({
+          ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [{
               chainId: decimalToHex(chainId),
               chainName: NETWORK_CONFIG[chainId].chainName,
               rpcUrls: [...NETWORK_CONFIG[chainId].rpcUrls],
             }],
-          }).catch(() => rejects())
+          }).then(() => reslove()).catch(() => rejects())
         } else {
           rejects()
         }
