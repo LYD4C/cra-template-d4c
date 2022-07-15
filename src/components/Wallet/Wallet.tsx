@@ -116,9 +116,11 @@ const Wallet: React.FC = () => {
           Object.keys(SUPPORTED_WALLETS).map(key => {
             const option = SUPPORTED_WALLETS[key]
             return (
-              <div className="label" key={key} onClick={() => handleConnect(option.connector!)}>
-                {option.name}
-                <img className="icon" src={option.iconName} />
+              <div className="walletSeletor" key={key}>
+                <div className="label" onClick={() => handleConnect(option.connector!)}>
+                  {option.name}
+                  <img className="icon" src={option.iconName} />
+                </div>
               </div>
             )
           })
