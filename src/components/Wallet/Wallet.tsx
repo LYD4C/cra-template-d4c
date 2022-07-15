@@ -15,6 +15,7 @@ import Button from '../Button'
 import { useLoading } from '../Loading/Loading'
 import Drawer from '../Drawer'
 import Identicon from './Identicon'
+import { UnsupportedChainIdError } from '@web3-react/core'
 
 const LOACL_ACCOUNT = 'localAccount'
 const ACCOUNT_CHANGED = 'accountsChanged'
@@ -67,8 +68,8 @@ const Wallet: React.FC = () => {
         }
       }
     }).catch(err => {
-      if (err.name === 'UnsupportedChainIdError') return
-      toast({ text: err.name, type: 'error' })
+      if (err instanceof UnsupportedChainIdError) return
+      toast({ text: err.message, type: 'error' })
     })
   }
   // 断开钱包链接
