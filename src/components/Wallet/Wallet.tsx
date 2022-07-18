@@ -3,7 +3,15 @@ import WalletIcon from './images/wallet-icon.svg'
 import { useEffect, useState } from 'react'
 import { useActiveWeb3React } from '../../helpers/hooks'
 import Modal from '../Modal'
-import { changeNetwork, DEFAULT_NETWORK, DEFAULT_WALLET, getCurrentChainId, NETWORK_CONFIG, SUPPORTED_CHAIN_IDS, SUPPORTED_WALLETS } from '../../web3/chain'
+import {
+  changeNetwork,
+  DEFAULT_NETWORK,
+  DEFAULT_WALLET,
+  getCurrentChainId,
+  NETWORK_CONFIG,
+  SUPPORTED_CHAIN_IDS,
+  SUPPORTED_WALLETS,
+} from '../../web3/chain'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import toast from '../Toast/Toast'
 import { isDesktop, shortenAddress } from '../../helpers/utils'
@@ -68,7 +76,12 @@ const Wallet: React.FC = () => {
         }
       }
     }).catch(err => {
-      if (err instanceof UnsupportedChainIdError) return
+      if (err instanceof UnsupportedChainIdError) {
+        if (!isDesktop) {
+          handleShowDisconnectModal()
+        }
+        return
+      }
       toast({ text: err.message, type: 'error' })
     })
   }
@@ -141,10 +154,13 @@ const Wallet: React.FC = () => {
   const walletWrapper = () => {
     if (!active && !account) {
       return (
-        <WalletWrapper onClick={handleShowDisconnectModal}>
-          <img className="logo" src={WalletIcon} />
-          Connect Wallet
-        </WalletWrapper>
+        <>
+          {isDesktop &&
+          <WalletWrapper onClick={handleShowDisconnectModal}>
+            <img className="logo" src={WalletIcon} />
+            Connect Wallet
+          </WalletWrapper>}
+        </>
       )
     }
     return (
