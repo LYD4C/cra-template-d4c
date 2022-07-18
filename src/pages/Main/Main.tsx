@@ -10,8 +10,8 @@ const Main: React.FC = () => {
 
   return (
     <>
-      <Link to="/test" ><Button onClick={() => setDarkMode(value => !value)} text="link to test page" /></Link>
-      <Button onClick={() => toast({ text: 'esay' })} text="toast" />
+      <Link to="/" ><Button onClick={() => setDarkMode(value => !value)} text="link to test page" /></Link>
+      <Button fullWidth onClick={() => toast({ text: 'esay' })} text="toast" />
     </>
   )
 }

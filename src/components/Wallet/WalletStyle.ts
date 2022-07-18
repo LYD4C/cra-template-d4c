@@ -96,8 +96,6 @@ const AccountModal = styled.div`
       position: absolute;
       right: 0;
       top: 0;
-      width: 108px;
-      height: 54px;
       border-radius: 8px;
     }
   }

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { flexCenter } from '../../style'
+import { defaultTheme, flexCenter } from '../../style'
 import Wallet from '../Wallet'
 
 const HeaderWrapper = styled.div`
@@ -10,7 +10,7 @@ const HeaderWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding: 20px 160px;
+  padding: ${defaultTheme.isDesktop ? '20px 160px' : '0 0 0 20px'};
   background-color: ${props => props.theme.grey1};
   border-bottom: 1px solid ${props => props.theme.borderColor};
   .row {
@@ -23,7 +23,7 @@ const LogoWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   color: ${props => props.theme.grey1};
-  font-size: 26px;
+  font-size: ${defaultTheme.fontLarge};
   font-weight: bold;
   cursor: pointer;
   font-family: MiSans-Bold;

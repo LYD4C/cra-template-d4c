@@ -229,7 +229,7 @@ const Wallet: React.FC = () => {
             </div>
             <div className="desc">Connected with {formatConnectorName()}</div>
           </div>
-          <div className="label" onClick={() => setShowDisconnectModal(true)}>Change</div>
+          {/* <div className="label" onClick={() => setShowDisconnectModal(true)}>Change</div> */}
           <a
             className="label"
             href={chainId && `${NETWORK_CONFIG[chainId].explorer}/address/${account}`}
@@ -237,7 +237,7 @@ const Wallet: React.FC = () => {
             rel="noreferrer"
           >view on explorer
           </a>
-          <div className="label" onClick={handleDisconnect}>Disconnect</div>
+          {/* <div className="label" onClick={handleDisconnect}>Disconnect</div> */}
         </AccountDrawer>
       </Drawer>
     </>

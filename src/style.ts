@@ -1,19 +1,20 @@
 import { createGlobalStyle, DefaultTheme } from 'styled-components'
+import { isDesktop } from './helpers/utils'
 
 
 const defaultTheme = {
-  grey1: '',
+  grey1: '#000',
   grey2: '',
   grey3: '',
   grey4: '',
   grey5: '',
-  fontLargest: '',
-  fontLarge: '',
-  fontNormal: '',
-  fontSmall: '',
-  fontSmaller: '',
-  primaryColor: '',
+  fontLargest: '40px',
+  fontLarge: '24px',
+  fontNormal: '14px',
+  fontSmall: '12px',
+  primaryColor: '#0057FF',
   borderColor: '',
+  isDesktop,
 }
 
 const darkTheme: DefaultTheme = {
@@ -33,7 +34,7 @@ const flexCenter = `
 const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
-    font-size: 12px;
+    font-size: ${defaultTheme.fontNormal};
   }
 
   body {

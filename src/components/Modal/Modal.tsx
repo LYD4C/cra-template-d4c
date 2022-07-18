@@ -14,6 +14,7 @@ const ModalBody = styled.div`
   transform: translate(-50%, -50%);
   background: #fff;
   outline: 0;
+  border-radius: 20px;
 `
 const ModalHeader = styled.div`
   ${flexCenter};
