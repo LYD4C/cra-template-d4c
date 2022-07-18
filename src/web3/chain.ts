@@ -97,6 +97,7 @@ export const changeNetwork = (chainId: number) => {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: decimalToHex(chainId) }],
       }).then(() => {
+        // 曾经遇到过h5端（钱包内置浏览器）无法监听事件
         if (ethereum && ethereum.on) {
           ethereum.on(CHAIN_CHANGED, () => {
             reslove()

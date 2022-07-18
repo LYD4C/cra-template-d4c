@@ -6,7 +6,6 @@ import React, { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { LoadingProvider } from './components/Loading/Loading'
 import Main from './pages/Main'
-import Test from './pages/Test'
 import { ThemeContext } from './helpers/hooks'
 import ToastContainer from './components/Toast/ToastContainer'
 import Header from './components/Header'
@@ -25,7 +24,6 @@ function App() {
             <Web3Manager>
               <Routes>
                 <Route path="/" element={<Main />} />
-                <Route path="/test" element={<Test />} />
               </Routes>
             </Web3Manager>
             <ToastContainer />

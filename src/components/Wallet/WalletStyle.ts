@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { isDesktop } from '../../helpers/utils'
 import {
   defaultTheme, flexCenter,
 } from '../../style'
@@ -12,9 +13,8 @@ const WalletWrapper = styled.div`
   padding: 8px 16px;
   border-radius: 20px;
   color: ${defaultTheme.grey1};
-  font-size: ${defaultTheme.fontNormal};
   line-height: 19px;
-  cursor: pointer;
+  cursor: ${isDesktop ? 'pointer' : 'none'};
   background-color: #0057FF;
   .logo {
     width: 16px;
@@ -37,7 +37,7 @@ const WalletModal = styled.div`
     border-radius: 8px;
     padding: 16px 24px;
     margin-top: 8px;
-    cursor: pointer;
+    cursor: ${isDesktop ? 'pointer' : 'none'};;
     font-weight: 500;
     :hover {
       background-color: ${defaultTheme.primaryColor};
@@ -49,7 +49,6 @@ const WalletModal = styled.div`
     }
   }
   .content {
-    font-size: ${defaultTheme.fontNormal};
     padding: 20px 0;
     text-align: center;
   }
@@ -70,7 +69,7 @@ const AccountModal = styled.div`
       display: flex;
       flex-direction: row;
       align-items: center;
-      font-size: 20px;
+      font-size: ${defaultTheme.fontLarge};
       color: #101010;
       line-height: 23px;
       margin-bottom: 12px;
@@ -83,21 +82,18 @@ const AccountModal = styled.div`
         width: 24px;
         height: 24px;
         margin-left: 12px;
-        cursor: pointer;
+        cursor: ${isDesktop ? 'pointer' : 'none'};;
       }
     }
     .desc {
       color: #999999;
       line-height: 15px;
-      font-size: 12px;
       margin-bottom: 20px;
     }
     button {
       position: absolute;
       right: 0;
       top: 0;
-      width: 108px;
-      height: 54px;
       border-radius: 8px;
     }
   }
@@ -108,7 +104,7 @@ const AccountModal = styled.div`
     border-radius: 8px;
     padding: 16px 0;
     margin-top: 8px;
-    cursor: pointer;
+    cursor: ${isDesktop ? 'pointer' : 'none'};;
     font-weight: 500;
     background: #F4F5F6;
     :hover {
@@ -126,19 +122,5 @@ const AccountDrawer = styled(AccountModal)`
   }
 `
 
-const H5BottomWrapper = styled.div`
-  position: fixed;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #fff;
-  border-radius: 32px 32px 0px 0px;
-  height: 60px;
-  padding: 0 20px;
-`
 
-export { WalletWrapper, WalletModal, AccountModal, AccountDrawer, H5BottomWrapper }
+export { WalletWrapper, WalletModal, AccountModal, AccountDrawer }

@@ -1,4 +1,4 @@
-import { AccountDrawer, AccountModal, H5BottomWrapper, WalletModal, WalletWrapper } from './WalletStyle'
+import { AccountDrawer, AccountModal, WalletModal, WalletWrapper } from './WalletStyle'
 import WalletIcon from './images/wallet-icon.svg'
 import { useEffect, useState } from 'react'
 import { useActiveWeb3React } from '../../helpers/hooks'
@@ -173,10 +173,10 @@ const Wallet: React.FC = () => {
   return (
     <>
       <NetworkSelector
-        handleNoWallet={!active && !account ? handleShowDisconnectModal : undefined}
+        onWalletDisconnect={!active && !account ? handleShowDisconnectModal : undefined}
       />
       {
-        isDesktop ? walletWrapper() : <H5BottomWrapper>{walletWrapper()}</H5BottomWrapper>
+        walletWrapper()
       }
       <Modal
         title="Account"
@@ -227,9 +227,9 @@ const Wallet: React.FC = () => {
               {account && shortenAddress(account)}
               <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
             </div>
-            <div className="desc">Connected with {formatConnectorName()}</div>
+            {isDesktop && <div className="desc">Connected with {formatConnectorName()}</div>}
           </div>
-          <div className="label" onClick={() => setShowDisconnectModal(true)}>Change</div>
+          {/* <div className="label" onClick={() => setShowDisconnectModal(true)}>Change</div> */}
           <a
             className="label"
             href={chainId && `${NETWORK_CONFIG[chainId].explorer}/address/${account}`}
@@ -237,7 +237,7 @@ const Wallet: React.FC = () => {
             rel="noreferrer"
           >view on explorer
           </a>
-          <div className="label" onClick={handleDisconnect}>Disconnect</div>
+          {/* <div className="label" onClick={handleDisconnect}>Disconnect</div> */}
         </AccountDrawer>
       </Drawer>
     </>

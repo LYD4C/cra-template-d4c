@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import { ThemeContext } from '../../helpers/hooks'
 import CloseDark from '../../images/close-dark-icon.svg'
 import CloseLight from '../../images/close-light-icon.svg'
+import { isDesktop } from '../../helpers/utils'
 
 const Wrapper = styled(MDrawer)`
   .body {
@@ -14,7 +15,7 @@ const Wrapper = styled(MDrawer)`
       top: 24px;
       width: 40px;
       height: 40px;
-      cursor: pointer;
+      cursor: ${isDesktop ? 'pointer' : 'none'};;
     }
   }
 `

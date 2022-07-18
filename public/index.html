@@ -3,13 +3,34 @@
   <head>
     <meta charset="utf-8" />
     <!-- <link rel="icon" href="./logo.png" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="
+      width=device-width,
+      initial-scale=1,
+      user-scalable=no,
+      minimum-sacle=1,
+      maximum-scale=1" />
     <meta name="title" content="react app"/>
     <meta
       name="description"
       content="react app"
     />
     <title>react app</title>
+    <script>
+      const isMobile = () => {
+        let flag = window.innerWidth < 768;
+        return flag;
+      }
+      const WIDTH = 750  //如果是尺寸的设计稿在这里修改
+      const setView = () => {
+        //设置html标签的fontSize
+        document.documentElement.style.fontSize = (100 * screen.width / WIDTH) + 'px'
+      }
+      window.onorientationchange = setView
+      if (isMobile()) {
+        setView()
+      }
+  
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

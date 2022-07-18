@@ -21,7 +21,7 @@ const SelectorWrapper = styled.div`
   border: 1px solid #F3F3F3;
   margin-left: auto;
   margin-right: 20px;
-  cursor: pointer;
+  cursor: ${isDesktop ? 'pointer' : 'none'};;
   .logo {
     width: 24px;
     height: 24px;
@@ -42,7 +42,7 @@ const Label = `
     border-radius: 8px;
     width: 280px;
     margin-top: 16px;
-    cursor: pointer;
+    cursor: ${isDesktop ? 'pointer' : 'none'};;
     font-weight: 500;
     font-family: MiSans-Normal;
     .logo {
@@ -84,7 +84,7 @@ const SelectdWrapper = styled.div`
     .link {
       width: 10px;
       height: 10px;
-      cursor: pointer;
+      cursor: ${isDesktop ? 'pointer' : 'none'};;
     }
     :hover {
       text-decoration:underline;
@@ -103,18 +103,18 @@ const SelectdWrapper = styled.div`
 const NETWORK_SELECTOR = 'newworkSelector'
 
 interface NetworkProps {
-  handleNoWallet?: () => void;
+  onWalletDisconnect?: () => void;
 }
-const NetworkSelector: React.FC<NetworkProps> = ({ handleNoWallet }) => {
+const NetworkSelector: React.FC<NetworkProps> = ({ onWalletDisconnect }) => {
   const { chainId, active } = useActiveWeb3React()
   const anchorElRef = useRef<HTMLDivElement>(null)
   const [show, setShow] = useState(false)
   const loading = useLoading()
 
   const onSelectChain = (id: number) => {
-    if (!active && handleNoWallet) {
+    if (!active && onWalletDisconnect) {
       setShow(false)
-      handleNoWallet()
+      onWalletDisconnect()
       return
     }
     if (id === chainId) return

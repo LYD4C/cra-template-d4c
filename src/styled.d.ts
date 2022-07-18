@@ -11,7 +11,6 @@ declare module 'styled-components' {
     fontLarge: string;
     fontNormal: string;
     fontSmall: string;
-    fontSmaller: string;
     primaryColor: string;
     borderColor: string;
   }

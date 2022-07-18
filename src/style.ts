@@ -1,19 +1,20 @@
 import { createGlobalStyle, DefaultTheme } from 'styled-components'
+import { isDesktop } from './helpers/utils'
 
 
 const defaultTheme = {
-  grey1: '',
+  grey1: '#000',
   grey2: '',
   grey3: '',
   grey4: '',
   grey5: '',
-  fontLargest: '',
-  fontLarge: '',
-  fontNormal: '',
-  fontSmall: '',
-  fontSmaller: '',
-  primaryColor: '',
+  fontLargest: isDesktop ? '40px' : '0.4rem',
+  fontLarge: isDesktop ? '24px' : '0.24rem',
+  fontNormal: isDesktop ? '14px' : '0.14rem',
+  fontSmall: isDesktop ? '12px' : '0.12rem',
+  primaryColor: '#0057FF',
   borderColor: '',
+  isDesktop,
 }
 
 const darkTheme: DefaultTheme = {
@@ -33,12 +34,12 @@ const flexCenter = `
 const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
-    font-size: 12px;
   }
 
   body {
     min-height: 100%;
     position: relative;
+    font-size: ${defaultTheme.fontNormal};
   }
 
   body, textarea, input, button {
@@ -55,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     border: 0;
     background: transparent;
-    cursor: pointer;
+    cursor: ${isDesktop ? 'pointer' : 'none'};;
     &:focus {
       outline: 1px solid rgba(0, 0, 0, .1);
     }

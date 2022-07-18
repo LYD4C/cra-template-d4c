@@ -6,6 +6,7 @@ import { ThemeContext } from '../../helpers/hooks'
 import { defaultTheme, flexCenter } from '../../style'
 import CloseDark from '../../images/close-dark-icon.svg'
 import CloseLight from '../../images/close-light-icon.svg'
+import { isDesktop } from '../../helpers/utils'
 
 const ModalBody = styled.div`
   position: absolute;
@@ -14,6 +15,7 @@ const ModalBody = styled.div`
   transform: translate(-50%, -50%);
   background: #fff;
   outline: 0;
+  border-radius: 20px;
 `
 const ModalHeader = styled.div`
   ${flexCenter};
@@ -27,7 +29,7 @@ const ModalHeader = styled.div`
     top: 24px;
     width: 40px;
     height: 40px;
-    cursor: pointer;
+    cursor: ${isDesktop ? 'pointer' : 'none'};;
   }
 `
 
