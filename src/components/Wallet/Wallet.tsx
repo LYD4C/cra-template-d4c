@@ -1,4 +1,4 @@
-import { AccountDrawer, AccountModal, H5BottomWrapper, WalletModal, WalletWrapper } from './WalletStyle'
+import { AccountDrawer, AccountModal, WalletModal, WalletWrapper } from './WalletStyle'
 import WalletIcon from './images/wallet-icon.svg'
 import { useEffect, useState } from 'react'
 import { useActiveWeb3React } from '../../helpers/hooks'
@@ -173,10 +173,10 @@ const Wallet: React.FC = () => {
   return (
     <>
       <NetworkSelector
-        handleNoWallet={!active && !account ? handleShowDisconnectModal : undefined}
+        onWalletDisconnect={!active && !account ? handleShowDisconnectModal : undefined}
       />
       {
-        isDesktop ? walletWrapper() : <H5BottomWrapper>{walletWrapper()}</H5BottomWrapper>
+        walletWrapper()
       }
       <Modal
         title="Account"

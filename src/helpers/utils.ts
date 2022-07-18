@@ -20,7 +20,7 @@ const decimalToHex = (decimal: number) => {
 
 let isDesktop = false
 if (typeof document !== 'undefined') {
-  if (window.innerWidth >= 992) {
+  if (window.innerWidth >= 768) {
     isDesktop = true
   }
 }

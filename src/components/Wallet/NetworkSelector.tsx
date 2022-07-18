@@ -103,18 +103,18 @@ const SelectdWrapper = styled.div`
 const NETWORK_SELECTOR = 'newworkSelector'
 
 interface NetworkProps {
-  handleNoWallet?: () => void;
+  onWalletDisconnect?: () => void;
 }
-const NetworkSelector: React.FC<NetworkProps> = ({ handleNoWallet }) => {
+const NetworkSelector: React.FC<NetworkProps> = ({ onWalletDisconnect }) => {
   const { chainId, active } = useActiveWeb3React()
   const anchorElRef = useRef<HTMLDivElement>(null)
   const [show, setShow] = useState(false)
   const loading = useLoading()
 
   const onSelectChain = (id: number) => {
-    if (!active && handleNoWallet) {
+    if (!active && onWalletDisconnect) {
       setShow(false)
-      handleNoWallet()
+      onWalletDisconnect()
       return
     }
     if (id === chainId) return

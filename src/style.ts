@@ -8,10 +8,10 @@ const defaultTheme = {
   grey3: '',
   grey4: '',
   grey5: '',
-  fontLargest: '40px',
-  fontLarge: '24px',
-  fontNormal: '14px',
-  fontSmall: '12px',
+  fontLargest: isDesktop ? '40px' : '0.4rem',
+  fontLarge: isDesktop ? '24px' : '0.24rem',
+  fontNormal: isDesktop ? '14px' : '0.14rem',
+  fontSmall: isDesktop ? '12px' : '0.12rem',
   primaryColor: '#0057FF',
   borderColor: '',
   isDesktop,
@@ -34,12 +34,12 @@ const flexCenter = `
 const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
-    font-size: ${defaultTheme.fontNormal};
   }
 
   body {
     min-height: 100%;
     position: relative;
+    font-size: ${defaultTheme.fontNormal};
   }
 
   body, textarea, input, button {

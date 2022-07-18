@@ -1,6 +1,11 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
+import { ThemeContext } from '../../helpers/hooks'
+import { isDesktop } from '../../helpers/utils'
 import { defaultTheme, flexCenter } from '../../style'
 import Wallet from '../Wallet'
+import DarkIcon from './dark-icon.svg'
+import LightIcon from './light-icon.svg'
 
 const HeaderWrapper = styled.div`
   position: sticky;
@@ -9,6 +14,7 @@ const HeaderWrapper = styled.div`
   z-index: 10;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: ${defaultTheme.isDesktop ? '20px 160px' : '0 0 0 20px'};
   background-color: ${props => props.theme.grey1};
@@ -16,6 +22,17 @@ const HeaderWrapper = styled.div`
   .row {
     ${flexCenter};
     flex-direction: row;
+  }
+  .icon {
+    cursor: pointer;
+    border-radius: 8px;
+    width: 24px;
+    height: 24px;
+    margin-right: 24px;
+    :hover {
+      background-color: ${props => (isDesktop ? props.theme.primaryColor : null)};
+      opacity: ${isDesktop ? '0.2' : '1'};
+    }
   }
 `
 const LogoWrapper = styled.div`
@@ -40,10 +57,19 @@ const LogoWrapper = styled.div`
 `
 
 const Header: React.FC = () => {
+  const { darkMode, setDarkMode } = useContext(ThemeContext)
+  const toggleTheme = () => {
+    setDarkMode(current => !current)
+  }
   return (
     <HeaderWrapper >
       <LogoWrapper />
       <Wallet />
+      {
+          darkMode ?
+            <img src={LightIcon} className="icon" onClick={toggleTheme} />
+            : <img src={DarkIcon} className="icon" onClick={toggleTheme} />
+        }
     </HeaderWrapper>
   )
 }

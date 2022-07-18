@@ -44,3 +44,17 @@ import CONFIG from "../../config"
 console.log(CONFIG.xxx)
 ```
 
+### 关于移动端适配 采用flex布局 + rem + 百分百
+需按需要配置
+`public/index.html`
+
+在写样式的时候，UI稿尺寸 / 100。
+Example:
+
+```
+width: 200px;
+
+width: 2rem;
+
+```
+
