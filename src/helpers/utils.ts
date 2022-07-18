@@ -10,4 +10,17 @@ const chunk = (arr: any[], num: number) => {
   })
 }
 
-export { shortenAddress, chunk }
+const decimalToHex = (decimal: number) => {
+  return `0x${decimal.toString(16)}`
+}
+
+let isDesktop = false
+if (typeof document !== 'undefined') {
+  if (window.innerWidth >= 992) {
+    isDesktop = true
+  }
+}
+
+const ios = /iPad|iPhone|iPod/.test(navigator.userAgent)
+
+export { shortenAddress, chunk, decimalToHex, isDesktop, ios }

@@ -7,6 +7,7 @@ import { ThemeContext } from '../../helpers/hooks'
 
 const Main: React.FC = () => {
   const { setDarkMode } = useContext(ThemeContext)
+
   return (
     <>
       <Link to="/test" ><Button onClick={() => setDarkMode(value => !value)} text="link to test page" /></Link>

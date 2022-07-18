@@ -1,5 +1,6 @@
 import { toast as RToast } from 'react-toastify'
 import ErrorIcon from './error.svg'
+import SuccessIcon from './success.svg'
 
 type ToastType = 'info' | 'success' | 'warning' | 'error'
 interface ToastProps {
@@ -8,14 +9,14 @@ interface ToastProps {
 }
 const typeIcon: {[key in ToastType]: any} = {
   info: ErrorIcon,
-  success: ErrorIcon,
+  success: SuccessIcon,
   error: ErrorIcon,
   warning: ErrorIcon,
 }
 
 const toast = ({
   text = '',
-  type = 'error',
+  type = 'success',
 }: ToastProps) => {
   return RToast(text, {
     type,

@@ -1,10 +1,11 @@
 {
   "name": "cra-template-d4c",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.12.4",
+    "@metamask/jazzicon": "^2.0.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -26,7 +27,7 @@
   },
   "scripts": {
     "dev": "craco start",
-    "build": "craco build",
+    "build": "rimraf ./build && craco build",
     "test": "eslint src --ext .ts,.tsx --quiet",
     "addPage": "node scripts/addPage.js $2",
     "addCompo": "node scripts/addComponent.js $2"
@@ -49,6 +50,12 @@
     "@types/styled-components": "^5.1.25",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
+    "@web3-react/core": "^6.0.9",
+    "@web3-react/fortmatic-connector": "^6.0.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "@web3-react/portis-connector": "^6.0.9",
+    "@web3-react/walletconnect-connector": "^6.1.1",
+    "@web3-react/walletlink-connector": "^6.0.9",
     "eslint": "^7.32.0",
     "eslint-config-ali": "^14.0.1",
     "eslint-import-resolver-typescript": "^3.2.1",
