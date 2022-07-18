@@ -24,7 +24,7 @@ const HeaderWrapper = styled.div`
     flex-direction: row;
   }
   .icon {
-    cursor: pointer;
+    cursor: ${isDesktop ? 'pointer' : 'none'};;
     border-radius: 8px;
     width: 24px;
     height: 24px;
@@ -42,7 +42,7 @@ const LogoWrapper = styled.div`
   color: ${props => props.theme.grey1};
   font-size: ${defaultTheme.fontLarge};
   font-weight: bold;
-  cursor: pointer;
+  cursor: ${isDesktop ? 'pointer' : 'none'};;
   font-family: MiSans-Bold;
   .logo {
     width: 40px;

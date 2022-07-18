@@ -227,7 +227,7 @@ const Wallet: React.FC = () => {
               {account && shortenAddress(account)}
               <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
             </div>
-            <div className="desc">Connected with {formatConnectorName()}</div>
+            {isDesktop && <div className="desc">Connected with {formatConnectorName()}</div>}
           </div>
           {/* <div className="label" onClick={() => setShowDisconnectModal(true)}>Change</div> */}
           <a

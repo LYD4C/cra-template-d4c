@@ -56,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     border: 0;
     background: transparent;
-    cursor: pointer;
+    cursor: ${isDesktop ? 'pointer' : 'none'};;
     &:focus {
       outline: 1px solid rgba(0, 0, 0, .1);
     }

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { isDesktop } from '../../helpers/utils'
 import {
   defaultTheme, flexCenter,
 } from '../../style'
@@ -13,7 +14,7 @@ const WalletWrapper = styled.div`
   border-radius: 20px;
   color: ${defaultTheme.grey1};
   line-height: 19px;
-  cursor: pointer;
+  cursor: ${isDesktop ? 'pointer' : 'none'};
   background-color: #0057FF;
   .logo {
     width: 16px;
@@ -36,7 +37,7 @@ const WalletModal = styled.div`
     border-radius: 8px;
     padding: 16px 24px;
     margin-top: 8px;
-    cursor: pointer;
+    cursor: ${isDesktop ? 'pointer' : 'none'};;
     font-weight: 500;
     :hover {
       background-color: ${defaultTheme.primaryColor};
@@ -81,7 +82,7 @@ const AccountModal = styled.div`
         width: 24px;
         height: 24px;
         margin-left: 12px;
-        cursor: pointer;
+        cursor: ${isDesktop ? 'pointer' : 'none'};;
       }
     }
     .desc {
@@ -103,7 +104,7 @@ const AccountModal = styled.div`
     border-radius: 8px;
     padding: 16px 0;
     margin-top: 8px;
-    cursor: pointer;
+    cursor: ${isDesktop ? 'pointer' : 'none'};;
     font-weight: 500;
     background: #F4F5F6;
     :hover {

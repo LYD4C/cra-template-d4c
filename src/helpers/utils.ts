@@ -1,5 +1,6 @@
 import VConsole from 'vconsole'
 // 用于H5 端调试
+// e.g. vConsole.log.log(xxx)
 const vConsole = new VConsole()
 
 // 获取短地址
@@ -25,13 +26,10 @@ if (typeof document !== 'undefined') {
   }
 }
 
-const ios = /iPad|iPhone|iPod/.test(navigator.userAgent)
-
 export {
   shortenAddress,
   chunk,
   decimalToHex,
   isDesktop,
-  ios,
   vConsole,
 }
