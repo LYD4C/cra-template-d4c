@@ -1,5 +1,5 @@
-# cra-tempalte-D4C
-TypeScript React App Tempalte
+# cra-template-D4C
+TypeScript React App Template
 基于CRA的app模板
 
 
