@@ -58,13 +58,14 @@ const LogoWrapper = styled.div`
 
 const Header: React.FC = () => {
   const { darkMode, setDarkMode } = useContext(ThemeContext)
+  const { ethereum } = window
   const toggleTheme = () => {
     setDarkMode(current => !current)
   }
   return (
     <HeaderWrapper >
       <LogoWrapper />
-      <Wallet />
+      {ethereum && <Wallet />}
       {
           darkMode ?
             <img src={LightIcon} className="icon" onClick={toggleTheme} />
