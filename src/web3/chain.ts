@@ -130,6 +130,6 @@ export const changeNetwork = (chainId: number) => {
 
 export const getCurrentChainId = () => {
   const { ethereum } = window
-  return Number(ethereum.chainId)
+  return Number(ethereum?.chainId)
 }
 
