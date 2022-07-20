@@ -16,12 +16,22 @@ in folder
 
 `yarn dev`
 
-## Eslint test
-`yarn run test`
+## Eslint 
 
-`yarn run test --fix`
+Eslint 使用 ali F2ELint脚手架进行搭建
+包含 eslint、prettier、vscode项目级setting配置以及git commit 钩子配置等。
+F2ELint:https://www.npmjs.com/package/f2elint
+
+### 安装
+`npm install f2elint -g`
+
+### `f2elint scan`：一键扫描
+### `f2elint fix`：一键修复
+
+
 
 ## To create a production build
+
 `yarn build`
 
 ## 添加页面
