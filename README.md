@@ -25,8 +25,8 @@ F2ELint文档 `https://www.npmjs.com/package/f2elint`
 ### 安装
 `yarn global add f2elint`
 
-### `f2elint scan`：一键扫描
-### `f2elint fix`：一键修复
+### `yarn f2elint-scan`：一键扫描
+### `yarn f2elint-fix`：一键修复
 
 
 
