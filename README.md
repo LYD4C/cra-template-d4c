@@ -23,7 +23,7 @@ Eslint 使用 ali F2ELint脚手架进行搭建
 F2ELint文档 `https://www.npmjs.com/package/f2elint`
 
 ### 安装
-`npm install f2elint -g`
+`yarn global add f2elint`
 
 ### `f2elint scan`：一键扫描
 ### `f2elint fix`：一键修复
