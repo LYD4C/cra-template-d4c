@@ -8,9 +8,11 @@ import { ThemeContext } from './helpers/hooks'
 import ToastContainer from './components/Toast/ToastContainer'
 import Header from './components/Header'
 import Web3Manager from './web3Manager'
+import { Reporter } from './analytics'
 
 function App() {
   const [darkMode, setDarkMode] = useState(true)
+  Reporter()
 
   return (
     <React.StrictMode>
