@@ -10,6 +10,7 @@ interface Theme {
 }
 
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 export const ThemeContext = createContext({} as Theme)
 
 type Web3Context = Web3ReactContextInterface<Web3Provider> & { chainId?: ChainId }

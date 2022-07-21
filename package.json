@@ -32,8 +32,8 @@
     "test": "eslint src --ext .ts,.tsx --quiet",
     "addPage": "node scripts/addPage.js $2",
     "addCompo": "node scripts/addComponent.js $2",
-    "f2elint-scan": "f2elint scan",
-    "f2elint-fix": "f2elint fix"
+    "lint-scan": "f2elint scan",
+    "lint-fix": "f2elint fix"
   },
   "browserslist": {
     "production": [
