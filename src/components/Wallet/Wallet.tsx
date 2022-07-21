@@ -30,12 +30,9 @@ const ACCOUNT_CHANGED = 'accountsChanged'
 const WALLET_CLOSED = 'walletClosed'
 // 钱包头像
 
-
 const Wallet: React.FC = () => {
   const [showDisconnectModal, setShowDisconnectModal] = useState(false)
-  const {
-    active, account, chainId, connector, activate, deactivate,
-  } = useActiveWeb3React()
+  const { active, account, chainId, connector, activate, deactivate } = useActiveWeb3React()
   const clipboard = useClipboard()
   const [switchChainModal, setSwitchChainModal] = useState(false)
   const [showAccountModal, setShowAccountModal] = useState(false)
@@ -43,9 +40,7 @@ const Wallet: React.FC = () => {
   const { ethereum } = window
 
   useEffect(() => {
-    if ((!localStorage.getItem(LOACL_ACCOUNT) && isDesktop)
-      || !DEFAULT_WALLET.connector
-    ) return
+    if ((!localStorage.getItem(LOACL_ACCOUNT) && isDesktop) || !DEFAULT_WALLET.connector) return
     handleConnect(DEFAULT_WALLET.connector)
   }, [])
 
@@ -58,32 +53,34 @@ const Wallet: React.FC = () => {
     connectWallet(cuurentConnector)
   }
   const connectWallet = (cuurentConnector: AbstractConnector) => {
-    activate(cuurentConnector, undefined, true).then(() => {
-      setShowDisconnectModal(false)
-      // 这里需要监听事件
-      if (ethereum && ethereum.isMetaMask) {
-        ethereum.on(ACCOUNT_CHANGED, (accounts: string[]) => {
-          if (!accounts.length) {
+    activate(cuurentConnector, undefined, true)
+      .then(() => {
+        setShowDisconnectModal(false)
+        // 这里需要监听事件
+        if (ethereum && ethereum.isMetaMask) {
+          ethereum.on(ACCOUNT_CHANGED, (accounts: string[]) => {
+            if (!accounts.length) {
+              handleDisconnect()
+            }
+          })
+          ethereum.on(WALLET_CLOSED, () => {
             handleDisconnect()
+          })
+          return () => {
+            ethereum.removeListener(WALLET_CLOSED)
+            ethereum.removeListener(ACCOUNT_CHANGED)
           }
-        })
-        ethereum.on(WALLET_CLOSED, () => {
-          handleDisconnect()
-        })
-        return () => {
-          ethereum.removeListener(WALLET_CLOSED)
-          ethereum.removeListener(ACCOUNT_CHANGED)
         }
-      }
-    }).catch(err => {
-      if (err instanceof UnsupportedChainIdError) {
-        if (!isDesktop) {
-          handleShowDisconnectModal()
+      })
+      .catch(err => {
+        if (err instanceof UnsupportedChainIdError) {
+          if (!isDesktop) {
+            handleShowDisconnectModal()
+          }
+          return
         }
-        return
-      }
-      toast({ text: err.message, type: 'error' })
-    })
+        toast({ text: err.message, type: 'error' })
+      })
   }
   // 断开钱包链接
   const handleDisconnect = () => {
@@ -110,12 +107,15 @@ const Wallet: React.FC = () => {
 
   const handleConnectNetwork = () => {
     loading.show()
-    changeNetwork(DEFAULT_NETWORK).then(() => {
-      setSwitchChainModal(false)
-      connectWallet(DEFAULT_WALLET.connector!)
-    }).catch(() => {
-      toast({ text: 'Something Wrong.Please try again', type: 'error' })
-    }).finally(() => loading.hide())
+    changeNetwork(DEFAULT_NETWORK)
+      .then(() => {
+        setSwitchChainModal(false)
+        connectWallet(DEFAULT_WALLET.connector!)
+      })
+      .catch(() => {
+        toast({ text: 'Something Wrong.Please try again', type: 'error' })
+      })
+      .finally(() => loading.hide())
   }
   // 未连接弹窗
   const DisconnectModal = () => {
@@ -126,8 +126,7 @@ const Wallet: React.FC = () => {
         onClose={() => setShowDisconnectModal(false)}
       >
         <WalletModal>
-          {
-          Object.keys(SUPPORTED_WALLETS).map(key => {
+          {Object.keys(SUPPORTED_WALLETS).map(key => {
             const option = SUPPORTED_WALLETS[key]
             return (
               <div className="walletSeletor" key={key}>
@@ -137,8 +136,7 @@ const Wallet: React.FC = () => {
                 </div>
               </div>
             )
-          })
-        }
+          })}
         </WalletModal>
       </Modal>
     )
@@ -146,8 +144,11 @@ const Wallet: React.FC = () => {
   // 处理当前连接的钱包名称
   const formatConnectorName = () => {
     const isMetaMask = !!(ethereum && ethereum.isMetaMask)
-    const name = Object.keys(SUPPORTED_WALLETS).filter(k =>
-      SUPPORTED_WALLETS[k].connector === connector && (isMetaMask === (k === 'METAMASK'))).map(k => SUPPORTED_WALLETS[k].name)[0]
+    const name = Object.keys(SUPPORTED_WALLETS)
+      .filter(
+        k => SUPPORTED_WALLETS[k].connector === connector && isMetaMask === (k === 'METAMASK'),
+      )
+      .map(k => SUPPORTED_WALLETS[k].name)[0]
     return name
   }
 
@@ -155,17 +156,20 @@ const Wallet: React.FC = () => {
     if (!active && !account) {
       return (
         <>
-          {isDesktop &&
-          <WalletWrapper onClick={handleShowDisconnectModal}>
-            <img className="logo" src={WalletIcon} />
-            Connect Wallet
-          </WalletWrapper>}
+          {isDesktop && (
+            <WalletWrapper onClick={handleShowDisconnectModal}>
+              <img className="logo" src={WalletIcon} />
+              Connect Wallet
+            </WalletWrapper>
+          )}
         </>
       )
     }
     return (
       <WalletWrapper onClick={() => setShowAccountModal(true)}>
-        <div className="avatar"><Identicon diameter={24} /></div>
+        <div className="avatar">
+          <Identicon diameter={24} />
+        </div>
         {shortenAddress(account!)}
       </WalletWrapper>
     )
@@ -175,9 +179,7 @@ const Wallet: React.FC = () => {
       <NetworkSelector
         onWalletDisconnect={!active && !account ? handleShowDisconnectModal : undefined}
       />
-      {
-        walletWrapper()
-      }
+      {walletWrapper()}
       <Modal
         title="Account"
         open={showAccountModal && isDesktop}
@@ -186,7 +188,9 @@ const Wallet: React.FC = () => {
         <AccountModal>
           <div className="content">
             <div className="row">
-              <div className="avatar"><Identicon /></div>
+              <div className="avatar">
+                <Identicon />
+              </div>
               {account && shortenAddress(account)}
               <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
             </div>
@@ -198,9 +202,12 @@ const Wallet: React.FC = () => {
             href={chainId && `${NETWORK_CONFIG[chainId].explorer}/address/${account}`}
             target="_blank"
             rel="noreferrer"
-          >view on explorer
+          >
+            view on explorer
           </a>
-          <div className="label" onClick={handleDisconnect}>Disconnect</div>
+          <div className="label" onClick={handleDisconnect}>
+            Disconnect
+          </div>
         </AccountModal>
       </Modal>
       <DisconnectModal />
@@ -216,14 +223,13 @@ const Wallet: React.FC = () => {
         </WalletModal>
       </Modal>
       {/* drawer h5 端抽屉 */}
-      <Drawer
-        open={showAccountModal && !isDesktop}
-        onClose={() => setShowAccountModal(false)}
-      >
+      <Drawer open={showAccountModal && !isDesktop} onClose={() => setShowAccountModal(false)}>
         <AccountDrawer>
           <div className="content">
             <div className="row">
-              <div className="avatar"><Identicon /></div>
+              <div className="avatar">
+                <Identicon />
+              </div>
               {account && shortenAddress(account)}
               <img src={CopyIcon} className="copy-icon" onClick={() => handleCopy(account!)} />
             </div>
@@ -235,7 +241,8 @@ const Wallet: React.FC = () => {
             href={chainId && `${NETWORK_CONFIG[chainId].explorer}/address/${account}`}
             target="_blank"
             rel="noreferrer"
-          >view on explorer
+          >
+            view on explorer
           </a>
           {/* <div className="label" onClick={handleDisconnect}>Disconnect</div> */}
         </AccountDrawer>

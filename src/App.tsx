@@ -1,7 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import {
-  darkTheme, GlobalStyle, lightTheme,
-} from './style'
+import { darkTheme, GlobalStyle, lightTheme } from './style'
 import React, { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { LoadingProvider } from './components/Loading/Loading'

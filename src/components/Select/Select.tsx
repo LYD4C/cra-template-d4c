@@ -4,31 +4,29 @@ import FormControl from '@material-ui/core/FormControl'
 import { isDesktop } from '../../helpers/utils'
 
 const MSelectWrapper = styled(MSelect)`
-  &.MuiOutlinedInput-root{
+  &.MuiOutlinedInput-root {
     width: ${isDesktop ? '220px' : '2.72rem'};
-    height: ${isDesktop ? '40px' : '0.4rem'};;
-    background: #FFFFFF;
+    height: ${isDesktop ? '40px' : '0.4rem'};
+    background: #ffffff;
     border-radius: 8px;
-    border: 1px solid #F1F1F1;
+    border: 1px solid #f1f1f1;
   }
-  &.MuiInputBase-root{
-    text-align:center ;
-    justify-content:center ;
+  &.MuiInputBase-root {
+    text-align: center;
+    justify-content: center;
   }
-  &.MuiSelect-outlined{
-    border:none
+  &.MuiSelect-outlined {
+    border: none;
   }
 `
 
-
 interface MSelectProp {
-  setValue: (value: any) => void;
+  setValue: (value: any) => void
   options: Array<{
-    label: any;
-    value: any;
-  }>;
+    label: any
+    value: any
+  }>
 }
-
 
 const Select: React.FC<SelectProps & MSelectProp> = ({ value, setValue, options }) => {
   const handleChange = (val: any) => {
@@ -36,7 +34,7 @@ const Select: React.FC<SelectProps & MSelectProp> = ({ value, setValue, options 
   }
 
   return (
-    <FormControl variant="outlined" >
+    <FormControl variant="outlined">
       <MSelectWrapper
         displayEmpty
         value={value}
@@ -55,18 +53,27 @@ const Select: React.FC<SelectProps & MSelectProp> = ({ value, setValue, options 
           handleChange(event.target.value)
         }}
         renderValue={
-          !value ? () => (
-            <div style={{
-              fontSize: 14, color: '#3333' }}
-            >
-              Please select
-            </div>
-          ) : (val: any) => <div>{val}</div>}
+          !value
+            ? () => (
+                <div
+                  style={{
+                    fontSize: 14,
+                    color: '#3333',
+                  }}
+                >
+                  Please select
+                </div>
+              )
+            : (val: any) => <div>{val}</div>
+        }
       >
-        {options.map(item => <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>)}
+        {options.map(item => (
+          <MenuItem key={item.value} value={item.value}>
+            {item.label}
+          </MenuItem>
+        ))}
       </MSelectWrapper>
     </FormControl>
-
   )
 }
 

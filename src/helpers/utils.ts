@@ -26,10 +26,4 @@ if (typeof document !== 'undefined') {
   }
 }
 
-export {
-  shortenAddress,
-  chunk,
-  decimalToHex,
-  isDesktop,
-  vConsole,
-}
+export { shortenAddress, chunk, decimalToHex, isDesktop, vConsole }

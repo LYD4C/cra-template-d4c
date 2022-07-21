@@ -4,12 +4,12 @@ import 'react-toastify/dist/ReactToastify.css'
 import styled from 'styled-components'
 
 const StyledContainer = styled(Container)`
-width: fit-content;
-  ${props => props.position === 'top-center' &&
-  `top: 1em;
+  width: fit-content;
+  ${props =>
+    props.position === 'top-center' &&
+    `top: 1em;
   left: 50%;
-  transform: translateX(-50%);`
-}
+  transform: translateX(-50%);`}
   .Toastify__toast {
     flex-direction: row;
     padding: 0;
@@ -47,4 +47,3 @@ const ToastContainer: React.FC = () => {
 }
 
 export default ToastContainer
-

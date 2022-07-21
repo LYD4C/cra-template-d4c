@@ -1,9 +1,6 @@
 import styled from 'styled-components'
 import { isDesktop } from '../../helpers/utils'
-import {
-  defaultTheme, flexCenter,
-} from '../../style'
-
+import { defaultTheme, flexCenter } from '../../style'
 
 const WalletWrapper = styled.div`
   ${flexCenter};
@@ -15,7 +12,7 @@ const WalletWrapper = styled.div`
   color: ${defaultTheme.grey1};
   line-height: 19px;
   cursor: ${isDesktop ? 'pointer' : 'none'};
-  background-color: #0057FF;
+  background-color: #0057ff;
   .logo {
     width: 16px;
     height: 16px;
@@ -37,11 +34,11 @@ const WalletModal = styled.div`
     border-radius: 8px;
     padding: 16px 24px;
     margin-top: 8px;
-    cursor: ${isDesktop ? 'pointer' : 'none'};;
+    cursor: ${isDesktop ? 'pointer' : 'none'};
     font-weight: 500;
     :hover {
       background-color: ${defaultTheme.primaryColor};
-      color: #FCFCFD;
+      color: #fcfcfd;
     }
     .icon {
       width: 24px;
@@ -57,7 +54,6 @@ const WalletModal = styled.div`
     height: 105px;
     margin: 0 auto;
   }
-
 `
 
 const AccountModal = styled.div`
@@ -82,7 +78,7 @@ const AccountModal = styled.div`
         width: 24px;
         height: 24px;
         margin-left: 12px;
-        cursor: ${isDesktop ? 'pointer' : 'none'};;
+        cursor: ${isDesktop ? 'pointer' : 'none'};
       }
     }
     .desc {
@@ -104,23 +100,22 @@ const AccountModal = styled.div`
     border-radius: 8px;
     padding: 16px 0;
     margin-top: 8px;
-    cursor: ${isDesktop ? 'pointer' : 'none'};;
+    cursor: ${isDesktop ? 'pointer' : 'none'};
     font-weight: 500;
-    background: #F4F5F6;
+    background: #f4f5f6;
     :hover {
-      color: #FCFCFD;
+      color: #fcfcfd;
       background-color: ${defaultTheme.primaryColor};
     }
   }
 `
 
 const AccountDrawer = styled(AccountModal)`
-  padding:40px 0;
+  padding: 40px 0;
   width: 100%;
   .content {
     align-items: center;
   }
 `
-
 
 export { WalletWrapper, WalletModal, AccountModal, AccountDrawer }

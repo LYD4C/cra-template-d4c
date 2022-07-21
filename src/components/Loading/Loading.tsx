@@ -18,11 +18,9 @@ const Wrapper = styled.div`
 `
 
 interface LoadingProps {
-  text?: string;
+  text?: string
 }
-const Loading: React.FC<LoadingProps> = ({
-  text,
-}) => {
+const Loading: React.FC<LoadingProps> = ({ text }) => {
   return (
     <Wrapper>
       <div className="mask">
@@ -54,7 +52,7 @@ export const useLoading = () => {
   const [setShow, setLoadingProps] = useContext(LoadingContext)
 
   return {
-    show({ autoHide }: {autoHide?: number} = {}) {
+    show({ autoHide }: { autoHide?: number } = {}) {
       setShow(true)
       if (autoHide) {
         setTimeout(() => {

@@ -5,25 +5,26 @@ const MPopoverWrapper = styled(MPopover)`
   .MuiPopover-paper {
     border-radius: 16px;
   }
-
 `
 type Vertical = 'top' | 'center' | 'bottom'
 type Horizontal = 'left' | 'center' | 'right'
 
-type PopoverProps = {
-  id: string;
-  open: boolean;
-  children: React.ReactElement;
-  anchorEl: Element | null;// 弹出框基于锚点定位
-  anchorOrigin?: { // 锚点位置
-    vertical: Vertical;
-    horizontal: Horizontal;
-  };
-  transformOrigin?: { // 弹出框位置
-    vertical: Vertical;
-    horizontal: Horizontal;
-  };
-  onClose(): void;
+interface PopoverProps {
+  id: string
+  open: boolean
+  children: React.ReactElement
+  anchorEl: Element | null // 弹出框基于锚点定位
+  anchorOrigin?: {
+    // 锚点位置
+    vertical: Vertical
+    horizontal: Horizontal
+  }
+  transformOrigin?: {
+    // 弹出框位置
+    vertical: Vertical
+    horizontal: Horizontal
+  }
+  onClose: () => void
 }
 
 const Popover: React.FC<PopoverProps> = ({

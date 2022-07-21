@@ -24,7 +24,7 @@ const HeaderWrapper = styled.div`
     flex-direction: row;
   }
   .icon {
-    cursor: ${isDesktop ? 'pointer' : 'none'};;
+    cursor: ${isDesktop ? 'pointer' : 'none'};
     border-radius: 8px;
     width: 24px;
     height: 24px;
@@ -42,7 +42,7 @@ const LogoWrapper = styled.div`
   color: ${props => props.theme.grey1};
   font-size: ${defaultTheme.fontLarge};
   font-weight: bold;
-  cursor: ${isDesktop ? 'pointer' : 'none'};;
+  cursor: ${isDesktop ? 'pointer' : 'none'};
   font-family: MiSans-Bold;
   .logo {
     width: 40px;
@@ -53,7 +53,6 @@ const LogoWrapper = styled.div`
     width: 100px;
     height: auto;
   }
- 
 `
 
 const Header: React.FC = () => {
@@ -63,14 +62,14 @@ const Header: React.FC = () => {
     setDarkMode(current => !current)
   }
   return (
-    <HeaderWrapper >
+    <HeaderWrapper>
       <LogoWrapper />
       {ethereum && <Wallet />}
-      {
-          darkMode ?
-            <img src={LightIcon} className="icon" onClick={toggleTheme} />
-            : <img src={DarkIcon} className="icon" onClick={toggleTheme} />
-        }
+      {darkMode ? (
+        <img src={LightIcon} className="icon" onClick={toggleTheme} />
+      ) : (
+        <img src={DarkIcon} className="icon" onClick={toggleTheme} />
+      )}
     </HeaderWrapper>
   )
 }

@@ -15,17 +15,17 @@ const Wrapper = styled(MDrawer)`
       top: 24px;
       width: 40px;
       height: 40px;
-      cursor: ${isDesktop ? 'pointer' : 'none'};;
+      cursor: ${isDesktop ? 'pointer' : 'none'};
     }
   }
 `
 type Anchor = 'top' | 'left' | 'bottom' | 'right'
 interface DrawerProps {
-  anchor?: Anchor;
-  open: boolean;
-  children: React.ReactElement;
-  showCloseIcon?: boolean;
-  onClose: () => void;
+  anchor?: Anchor
+  open: boolean
+  children: React.ReactElement
+  showCloseIcon?: boolean
+  onClose: () => void
 }
 const Drawer: React.FC<DrawerProps> = ({
   anchor = 'bottom',
@@ -38,13 +38,11 @@ const Drawer: React.FC<DrawerProps> = ({
 
   return (
     <div>
-      <Wrapper
-        open={open}
-        anchor={anchor}
-        onClose={onClose}
-      >
+      <Wrapper open={open} anchor={anchor} onClose={onClose}>
         <div className="body">
-          {showCloseIcon && <img className="icon" src={!darkMode ? CloseDark : CloseLight} onClick={onClose} />}
+          {showCloseIcon && (
+            <img className="icon" src={!darkMode ? CloseDark : CloseLight} onClick={onClose} />
+          )}
           {children}
         </div>
       </Wrapper>
