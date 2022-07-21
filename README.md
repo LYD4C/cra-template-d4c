@@ -5,14 +5,6 @@ TypeScript React App Template
 
 ## Installation
 
-`git clone https://github.com/LYD4C/cra-template-d4c.git`
-
-or
-
-in folder
-
-`npx create-react-app PROJECT NAME --template d4c`
-
 `yarn install`
 
 `yarn dev`
