@@ -5,10 +5,9 @@ import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
 import { ChainId, NetworkContextName } from '../web3/chain'
 
 interface Theme {
-  darkMode: boolean;
-  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  darkMode: boolean
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>
 }
-
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 export const ThemeContext = createContext({} as Theme)

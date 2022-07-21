@@ -29,17 +29,17 @@ const ModalHeader = styled.div`
     top: 24px;
     width: 40px;
     height: 40px;
-    cursor: ${isDesktop ? 'pointer' : 'none'};;
+    cursor: ${isDesktop ? 'pointer' : 'none'};
   }
 `
 
 interface ModalProps {
-  children: React.ReactElement;
-  title: string;
-  open: boolean;
-  showCloseIcon?: boolean;
-  width?: number; // px
-  onClose: () => void;
+  children: React.ReactElement
+  title: string
+  open: boolean
+  showCloseIcon?: boolean
+  width?: number // px
+  onClose: () => void
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -62,7 +62,9 @@ const Modal: React.FC<ModalProps> = ({
         <ModalBody style={{ width: (width ?? 0) > 0 ? `${width}px` : 'auto' }}>
           <ModalHeader>
             {title}
-            {showCloseIcon && <img className="icon" src={!darkMode ? CloseDark : CloseLight} onClick={onClose} />}
+            {showCloseIcon && (
+              <img className="icon" src={!darkMode ? CloseDark : CloseLight} onClick={onClose} />
+            )}
           </ModalHeader>
           {children}
         </ModalBody>

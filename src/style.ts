@@ -1,7 +1,6 @@
 import { createGlobalStyle, DefaultTheme } from 'styled-components'
 import { isDesktop } from './helpers/utils'
 
-
 const defaultTheme = {
   grey1: '#000',
   grey2: '',
@@ -86,10 +85,4 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-export {
-  darkTheme,
-  lightTheme,
-  defaultTheme,
-  GlobalStyle,
-  flexCenter,
-}
+export { darkTheme, lightTheme, defaultTheme, GlobalStyle, flexCenter }

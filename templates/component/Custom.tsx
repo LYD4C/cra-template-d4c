@@ -1,13 +1,9 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.div`
-
-`
+const Wrapper = styled.div``
 
 const Custom: React.FC = () => {
-  return (
-    <Wrapper />
-  )
+  return <Wrapper />
 }
 
 export default Custom

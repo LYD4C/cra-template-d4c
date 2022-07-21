@@ -3,11 +3,9 @@ import { useLayoutEffect, useRef } from 'react'
 import { useActiveWeb3React } from '../../helpers/hooks'
 
 interface IdenticonProps {
-  diameter?: number; // 默认头像直径px
+  diameter?: number // 默认头像直径px
 }
-const Identicon: React.FC<IdenticonProps> = ({
-  diameter = 32,
-}) => {
+const Identicon: React.FC<IdenticonProps> = ({ diameter = 32 }) => {
   const ref = useRef<HTMLDivElement>(null)
   const { account } = useActiveWeb3React()
   useLayoutEffect(() => {
@@ -17,7 +15,7 @@ const Identicon: React.FC<IdenticonProps> = ({
     }
   }, [account])
 
-  return (<div ref={ref} />)
+  return <div ref={ref} />
 }
 
 export default Identicon

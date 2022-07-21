@@ -4,20 +4,17 @@ import SuccessIcon from './success.svg'
 
 type ToastType = 'info' | 'success' | 'warning' | 'error'
 interface ToastProps {
-  text: string;
-  type?: ToastType;
+  text: string
+  type?: ToastType
 }
-const typeIcon: {[key in ToastType]: any} = {
+const typeIcon: { [key in ToastType]: any } = {
   info: ErrorIcon,
   success: SuccessIcon,
   error: ErrorIcon,
   warning: ErrorIcon,
 }
 
-const toast = ({
-  text = '',
-  type = 'success',
-}: ToastProps) => {
+const toast = ({ text = '', type = 'success' }: ToastProps) => {
   return RToast(text, {
     type,
     icon: () => <img src={typeIcon[type]} />,

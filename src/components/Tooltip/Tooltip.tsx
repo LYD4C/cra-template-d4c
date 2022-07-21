@@ -1,9 +1,6 @@
 import React, { PropsWithChildren, useState } from 'react'
 import { Tooltip as MTooltip, TooltipProps } from '@material-ui/core'
-import {
-  createTheme,
-  MuiThemeProvider,
-} from '@material-ui/core/styles'
+import { createTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import { isDesktop } from '../../helpers/utils'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 
@@ -21,16 +18,12 @@ const theme = createTheme({
 })
 
 interface Iprop {
-  text: string;
-  children: React.ReactElement;
-  placement?: TooltipProps['placement'];
+  text: string
+  children: React.ReactElement
+  placement?: TooltipProps['placement']
 }
 
-const Tooltip: React.FC<PropsWithChildren<Iprop>> = ({
-  children,
-  text,
-  placement = 'top',
-}) => {
+const Tooltip: React.FC<PropsWithChildren<Iprop>> = ({ children, text, placement = 'top' }) => {
   const [open, setOpen] = useState(false)
 
   const handleTooltipClose = () => {
@@ -42,33 +35,31 @@ const Tooltip: React.FC<PropsWithChildren<Iprop>> = ({
 
   return (
     <MuiThemeProvider theme={theme}>
-      {isDesktop &&
-      <MTooltip title={text} placement={placement} >
-        {children}
-      </MTooltip>}
-      {!isDesktop &&
-      <ClickAwayListener onClickAway={handleTooltipClose}>
-        <div>
-          <MTooltip
-            PopperProps={{
-              disablePortal: true,
-            }}
-            onClose={handleTooltipClose}
-            open={open}
-            disableFocusListener
-            disableHoverListener
-            disableTouchListener
-            title={text}
-          >
-            <div onClick={handleTooltipOpen}>
-              {children}
-            </div>
-          </MTooltip>
-        </div>
-      </ClickAwayListener>}
-
+      {isDesktop && (
+        <MTooltip title={text} placement={placement}>
+          {children}
+        </MTooltip>
+      )}
+      {!isDesktop && (
+        <ClickAwayListener onClickAway={handleTooltipClose}>
+          <div>
+            <MTooltip
+              PopperProps={{
+                disablePortal: true,
+              }}
+              onClose={handleTooltipClose}
+              open={open}
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+              title={text}
+            >
+              <div onClick={handleTooltipOpen}>{children}</div>
+            </MTooltip>
+          </div>
+        </ClickAwayListener>
+      )}
     </MuiThemeProvider>
-
   )
 }
 

@@ -17,9 +17,7 @@ const getLibrary = (provider: any): Web3Provider => {
   library.pollingInterval = 15000
   return library
 }
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-)
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>

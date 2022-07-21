@@ -6,18 +6,18 @@ const ButtonWrapper = styled(MButton)`
   &.MuiButton-contained {
     border-radius: 20px;
     background: ${defaultTheme.primaryColor};
-    color: #FCFCFD;
+    color: #fcfcfd;
     line-height: 22px;
     font-size: ${defaultTheme.fontNormal};
     padding: 8px 24px;
     text-transform: none;
     width: ${props => (props.fullWidth ? '100%' : 'fit-content')};
     :hover {
-      background: #3772FF;
+      background: #3772ff;
     }
     &.Mui-disabled {
       background-color: RGBA(55, 115, 255, 0.4);
-      color: #FCFCFD;
+      color: #fcfcfd;
       cursor: not-allowed;
       pointer-events: auto;
     }
@@ -30,7 +30,7 @@ const ButtonWrapper = styled(MButton)`
     &.large {
       line-height: 24px;
       font-size: ${defaultTheme.fontSmall};
-      padding:8px 16px;
+      padding: 8px 16px;
       border-radius: 16px;
     }
   }
@@ -47,15 +47,14 @@ const ButtonWrapper = styled(MButton)`
   &.MuiButton-text {
     border: 0;
   }
-
 `
 
 type ButtonProps = {
-  disabled?: boolean;
-  text: string;
-  size?: 'small' | 'large' | 'medium';
-  variant?: 'text' | 'outlined' | 'contained'; // 文字型、描边型、实心按钮
-  fullWidth?: boolean; // 是否根据父元素填充宽度
+  disabled?: boolean
+  text: string
+  size?: 'small' | 'large' | 'medium'
+  variant?: 'text' | 'outlined' | 'contained' // 文字型、描边型、实心按钮
+  fullWidth?: boolean // 是否根据父元素填充宽度
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
 const Button: React.FC<ButtonProps> = ({
@@ -80,7 +79,8 @@ const Button: React.FC<ButtonProps> = ({
       onClick={handleClick}
       size={size}
       fullWidth={fullWidth}
-    >{text}
+    >
+      {text}
     </ButtonWrapper>
   )
 }

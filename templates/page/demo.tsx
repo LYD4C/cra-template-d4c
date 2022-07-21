@@ -1,8 +1,5 @@
-
 const Demo: React.FC = () => {
-  return (
-    <></>
-  )
+  return <></>
 }
 
 export default Demo

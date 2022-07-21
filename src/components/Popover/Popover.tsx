@@ -5,7 +5,6 @@ const MPopoverWrapper = styled(MPopover)`
   .MuiPopover-paper {
     border-radius: 16px;
   }
-
 `
 type Vertical = 'top' | 'center' | 'bottom'
 type Horizontal = 'left' | 'center' | 'right'
