@@ -1,5 +1,13 @@
 import { useEffect } from 'react'
-
+import { v4 as uuidv4 } from 'uuid'
+interface IData {
+  id: string // id
+  deviceName: string // 设备
+  osName: string // 操作系统
+  browser: string // 浏览器
+  region: string // 地区
+  viewTime: string // 访问时间
+}
 export const Reporter = () => {
   const Info = window.performance.timing
   const region = window.navigator.language
@@ -8,10 +16,10 @@ export const Reporter = () => {
     const date = new Date(timestamp)
     const Y = `${date.getFullYear()}/`
     const M = `${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}/`
-    const D = `${date.getDate()} `
-    const h = `${date.getHours()}:`
-    const m = `${date.getMinutes()}:`
-    const s = date.getSeconds()
+    const D = `${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()} `
+    const h = `${date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()}:`
+    const m = `${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}:`
+    const s = `${date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds()}`
     return Y + M + D + h + m + s
   }
   function getDev(value: string) {
@@ -120,21 +128,27 @@ export const Reporter = () => {
 
     return 'Other'
   }
-
+  function requserData(url: string, data: any) {
+    navigator.sendBeacon(url, data)
+  }
   useEffect(() => {
     const {
       navigator: { userAgent },
     } = window
-    const userAgentObj: any = {
-      deviceName: getDev(getOs()), // 设备
-      osName: getOs(), // 操作系统
-      browser: getBrowsers(), // 浏览器
-      region, // 地区
-      viewTime: formatDate(Info.connectEnd), // 访问时间
+    const userAgentObj: IData = {
+      id: uuidv4(),
+      deviceName: getDev(getOs()),
+      osName: getOs(),
+      browser: getBrowsers(),
+      region,
+      viewTime: formatDate(Info.connectEnd),
     }
-    window.localStorage.setItem('test', 'TEST')
+    window.localStorage.setItem('userAgentData', JSON.stringify(userAgentObj))
+    const reqData: any = window.localStorage.getItem('userAgentData')
+    const requestUrl: string = ''
+    requserData(requestUrl, JSON.parse(reqData))
+
     console.log(11111, userAgent)
     console.log('---userAgentObj---', userAgentObj)
-    console.log(navigator.sendBeacon('http://127.0.0.1:3007', userAgentObj))
   }, [])
 }
