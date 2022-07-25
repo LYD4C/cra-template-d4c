@@ -140,6 +140,7 @@ const getUserAgent = (): IData => {
 }
 
 export const Reporter = () => {
+
   const handleCookies = () => {
     try {
       if (! document.cookie.includes('uuid')) {
@@ -152,6 +153,7 @@ export const Reporter = () => {
       console.error(e)
     }
   }
+
   useEffect(() => {
     handleCookies()
     getMethod(`${location.href}report.gif?${jsonToQuery(getUserAgent())}`)
