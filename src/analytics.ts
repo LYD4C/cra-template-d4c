@@ -1,52 +1,66 @@
 import { useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import {isDesktop} from '../src/helpers/utils'
+
 interface IData {
-  id: string // id
-  deviceName: string // 设备
+  uuid: string 
+  deviceName: any // 设备
   osName: string // 操作系统
   browser: string // 浏览器
   region: string // 地区
-  viewTime: string // 访问时间
+  viewTime: any // 访问时间
+}
+
+
+const userAgentObj: IData = {
+  uuid: '',
+  deviceName:'',
+  osName: '',
+  browser: '',
+  region:'',
+  viewTime:''
 }
 export const Reporter = () => {
-  const Info = window.performance.timing
-  const region = window.navigator.language
 
-  function formatDate(timestamp: number) {
-    const date = new Date(timestamp)
-    const Y = `${date.getFullYear()}/`
-    const M = `${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}/`
-    const D = `${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()} `
-    const h = `${date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()}:`
-    const m = `${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}:`
-    const s = `${date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds()}`
-    return Y + M + D + h + m + s
-  }
-  function getDev(value: string) {
-    if (value === 'Ios' || value === 'Android') return 'H5'
-    return 'PC'
-  }
-  function getOs() {
+  const getOs=()=> {
     const u = navigator.userAgent
-    if (!!u.match(/compatible/i) || u.match(/Windows/i)) {
-      return 'Windows'
-    } else if (!!u.match(/Macintosh/i) || u.match(/MacIntel/i)) {
-      return 'MacOS'
-    } else if (!!u.match(/iphone/i) || u.match(/Ipad/i)) {
-      return 'Ios'
-    } else if (u.match(/android/i)) {
-      return 'Android'
-    } else if (u.match(/Ubuntu/i)) {
-      return 'Ubuntu'
-    } else if (u.match(/Linux/i)) {
-      return 'Linux'
-    } else {
-      return 'Other'
+    const OSArr=[
+      {
+      name: 'Windows',
+      it:!! u.match(/compatible/i) || u.match(/Windows/i),
+    },
+      {
+      name: 'MacOS',
+      it:!! u.match(/Macintosh/i) || u.match(/MacIntel/i),
+    },
+      {
+      name: 'Ios',
+      it:!! u.match(/iphone/i) || u.match(/Ipad/i),
+    },
+      {
+      name: 'Android',
+      it:!! u.match(/android/i),
+    },
+      {
+      name: 'Ubuntu',
+      it:!! u.match(/Ubuntu/i),
+    },
+      {
+      name: 'Linux',
+      it:!! u.match(/Linux/i),
+    }
+  ]
+  for (let i = 0; i < OSArr.length; i++) {
+    if (OSArr[i].it) {
+      return OSArr[i].name
     }
   }
-  function getBrowsers() {
+
+  return 'Other'
+  }
+  const getBrowsers=()=> {
     const { userAgent } = navigator
-    const bws = [
+    const bwsArr = [
       {
         name: 'sgssapp',
         it: /sogousearch/i.test(userAgent),
@@ -120,35 +134,39 @@ export const Reporter = () => {
         it: userAgent.indexOf('Opera') > -1 || userAgent.indexOf('OPR') > -1,
       },
     ]
-    for (let i = 0; i < bws.length; i++) {
-      if (bws[i].it) {
-        return bws[i].name
+    for (let i = 0; i < bwsArr.length; i++) {
+      if (bwsArr[i].it) {
+        return bwsArr[i].name
       }
     }
 
     return 'Other'
   }
-  function requserData(url: string, data: any) {
+  const requestData=(url: string, data: any)=> {
     navigator.sendBeacon(url, data)
   }
+  const getUserAgent=()=>{
+    userAgentObj.uuid=uuidv4()
+    userAgentObj.osName=getOs()
+    userAgentObj.browser=getBrowsers()
+    userAgentObj.deviceName=isDesktop?"PC":"H5"
+    userAgentObj.region= window.navigator.language
+    userAgentObj.viewTime= Math.round(window.performance.timeOrigin)
+  }
+  
   useEffect(() => {
     const {
       navigator: { userAgent },
     } = window
-    const userAgentObj: IData = {
-      id: uuidv4(),
-      deviceName: getDev(getOs()),
-      osName: getOs(),
-      browser: getBrowsers(),
-      region,
-      viewTime: formatDate(Info.connectEnd),
-    }
+    getUserAgent()
     window.localStorage.setItem('userAgentData', JSON.stringify(userAgentObj))
     const reqData: any = window.localStorage.getItem('userAgentData')
-    const requestUrl: string = ''
-    requserData(requestUrl, JSON.parse(reqData))
+    const requestUrl = ''
+    requestData(requestUrl, JSON.parse(reqData))
 
     console.log(11111, userAgent)
     console.log('---userAgentObj---', userAgentObj)
+    console.log(JSON.parse(reqData))
+    
   }, [])
 }
