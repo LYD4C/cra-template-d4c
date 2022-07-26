@@ -2,7 +2,7 @@ import moment from 'moment'
 import { useEffect } from 'react'
 import { isDesktop, jsonToQuery } from './helpers/utils'
 import { getMethod } from './http'
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 interface IData {
   deviceName: string // 设备
@@ -140,14 +140,15 @@ const getUserAgent = (): IData => {
 }
 
 export const Reporter = () => {
-
   const handleCookies = () => {
     try {
-      if (! document.cookie.includes('uuid')) {
+      if (!document.cookie.includes('uuid')) {
         const expires = new Date(
           moment(moment().add(30, 'days').format('YYYY-MM-DD')).unix() * 1000,
         ).toUTCString()
-        document.cookie = `uuid=${encodeURIComponent(uuidv4().replace(/-/g, ''))}; expires=${expires};`
+        document.cookie = `uuid=${encodeURIComponent(
+          uuidv4().replace(/-/g, ''),
+        )}; expires=${expires};`
       }
     } catch (e) {
       console.error(e)

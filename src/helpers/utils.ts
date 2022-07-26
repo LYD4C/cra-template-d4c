@@ -34,10 +34,4 @@ const jsonToQuery = (json: any) => {
     .join('&')
 }
 
-export {
-  shortenAddress,
-  chunk,
-  decimalToHex,
-  isDesktop,
-  jsonToQuery
-}
+export { shortenAddress, chunk, decimalToHex, isDesktop, jsonToQuery }
