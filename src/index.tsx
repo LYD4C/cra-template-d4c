@@ -9,7 +9,7 @@ import { NetworkContextName } from './web3/chain'
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
 if ('ethereum' in window) {
-  (window.ethereum as any).autoRefreshOnNetworkChange = false
+  ;(window.ethereum as any).autoRefreshOnNetworkChange = false
 }
 
 const getLibrary = (provider: any): Web3Provider => {

@@ -1,7 +1,4 @@
 import VConsole from 'vconsole'
-// 用于H5 端调试
-// e.g. vConsole.log.log(xxx)
-const vConsole = new VConsole()
 
 // 获取短地址
 const shortenAddress = (address: string, front = 6, behind = 4): string => {
@@ -25,5 +22,16 @@ if (typeof document !== 'undefined') {
     isDesktop = true
   }
 }
+// 用于H5 端调试
+// e.g. vConsole.log.log(xxx)
+export const vConsole = isDesktop ? null : new VConsole()
 
-export { shortenAddress, chunk, decimalToHex, isDesktop, vConsole }
+const jsonToQuery = (json: any) => {
+  return Object.keys(json)
+    .map((key: any) => {
+      return `${key}=${json[key]}`
+    })
+    .join('&')
+}
+
+export { shortenAddress, chunk, decimalToHex, isDesktop, jsonToQuery }
