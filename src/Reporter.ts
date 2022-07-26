@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { useEffect } from 'react'
-import { isDesktop, jsonToQuery } from '../src/helpers/utils'
+import { isDesktop, jsonToQuery } from './helpers/utils'
 import { getMethod } from './http'
 import {v4 as uuidv4} from 'uuid'
 
